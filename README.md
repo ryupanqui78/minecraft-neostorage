@@ -1,25 +1,23 @@
+#Neo Storage
 
-Installation information
-=======
+This mod adds blocks to storage, the items that can be storage are usually tools, armors, discs and enchanted books, as they are stored one per slot.
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions provided by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+This is my own version to store this kind of items, as I do not found an easy way to store single items and have access to them directly. I will adding more storage types with the time.
 
-Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
+## NeoTool Item
+Item that allow crafting the advance tables of this mod.
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
+### Crafting
+This item requires eight copper ingots and one lapis lazuri. To get the recipe is required to have copper ingots and lapis lazuri in the inventory.
 
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
+## New Blocks
 
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+### Tool Storage
+Tool storage allows save tools. It can allows store 54 items of only one type (enchanted or not).
+
+This block considers as tool the pickaxes, axes, sholves, hoes, fishing rodes, brushes and shears items.
+
+#### Crafting
+The tool storage requires two blocks of andesite, two blocks of diorite, two pistons, one iron ingot, one chest and one NeoTool item.
+
+To get the recipe is required to have blocks of andesite or diorite, and the NeoTool item in the inventory.

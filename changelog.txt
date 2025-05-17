@@ -1,3 +1,4 @@
 0.0.1-1.20.6
  - First commit.
  - Adding core item to build the storage block.
+ - Adding Tool Storage block.

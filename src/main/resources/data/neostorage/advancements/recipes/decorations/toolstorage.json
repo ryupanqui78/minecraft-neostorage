@@ -1,0 +1,40 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_resources": {
+    "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "neostorage:neotool"
+            ]
+          },
+          {
+            "items": [
+              "minecraft:andesite",
+              "minecraft:diorite"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neostorage:toolstorage"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_resources"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neostorage:toolstorage"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "D@D",
+    "CXC",
+    "A$A"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:diorite"
+    },
+    "A": {
+      "item": "minecraft:andesite"
+    },
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "@": {
+      "item": "minecraft:chest"
+    },
+    "$": {
+      "item": "minecraft:piston"
+    },
+    "X": {
+      "item": "neostorage:neotool"
+    }
+  },
+  "result": {
+    "id": "neostorage:toolstorage",
+    "count": 1
+  }
+}
