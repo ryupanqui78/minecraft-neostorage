@@ -2,3 +2,4 @@
  - First commit.
  - Adding core item to build the storage block.
  - Adding Tool Storage block.
+ - Adding Tool Storage implementation.

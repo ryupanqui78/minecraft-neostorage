@@ -3,5 +3,7 @@
   
   "item.neostorage.neotool": "NeoTool item",
   
-  "itemGroup.neostorage.neostorage": "Neo Storage items"
+  "itemGroup.neostorage.neostorage": "Neo Storage items",
+  
+  "screen.container.toolstorage": "Tool Storage"
 }

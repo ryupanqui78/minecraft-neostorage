@@ -18,6 +18,6 @@ public class SetupBlocks {
             BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops());
     
     public static final DeferredItem<BlockItem> TOOL_STORAGE_ITEM = SetupItems.ITEMS
-            .registerSimpleBlockItem(TOOL_STORAGE);
+            .registerSimpleBlockItem(SetupBlocks.TOOL_STORAGE);
     
 }
