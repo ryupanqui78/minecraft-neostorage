@@ -5,5 +5,7 @@
   
   "itemGroup.neostorage.neostorage": "Neo Storage items",
   
-  "screen.container.toolstorage": "Tool Storage"
+  "screen.container.toolstorage": "Tool Storage",
+  
+  "text.storage.fill.information.literal": "Stored %s of %s"
 }

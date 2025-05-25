@@ -20,4 +20,7 @@ public class SetupBlocks {
     public static final DeferredItem<BlockItem> TOOL_STORAGE_ITEM = SetupItems.ITEMS
             .registerSimpleBlockItem(SetupBlocks.TOOL_STORAGE);
     
+    private SetupBlocks() {
+    }
+    
 }
