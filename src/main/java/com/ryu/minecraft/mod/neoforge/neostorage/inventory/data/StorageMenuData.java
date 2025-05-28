@@ -28,4 +28,8 @@ public class StorageMenuData {
         return this.filterTag;
     }
     
+    public int getLevelSlots() {
+        return this.dataMultiple.get(0);
+    }
+    
 }

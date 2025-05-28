@@ -5,7 +5,9 @@ import com.ryu.minecraft.mod.neoforge.neostorage.blocks.ToolStorageBlock;
 import com.ryu.minecraft.mod.neoforge.neostorage.blocks.entities.ToolStorageBlockEntity;
 
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -15,8 +17,11 @@ public class SetupBlockEntity {
             .create(BuiltInRegistries.BLOCK_ENTITY_TYPE, NeoStorage.MODID);
     
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ToolStorageBlockEntity>> TOOL_STORAGE = SetupBlockEntity.BLOCK_ENTITIES
-            .register(ToolStorageBlock.BLOCK_NAME, () -> BlockEntityType.Builder
-                    .of(ToolStorageBlockEntity::new, SetupBlocks.TOOL_STORAGE.get()).build(null));
+            .register(ToolStorageBlock.BLOCK_NAME,
+                    () -> BlockEntityType.Builder
+                            .of(ToolStorageBlockEntity::new, SetupBlocks.TOOL_STORAGE.stream()
+                                    .map(DeferredBlock<ToolStorageBlock>::get).toList().toArray(new Block[0]))
+                            .build(null));
     
     private SetupBlockEntity() {
     }

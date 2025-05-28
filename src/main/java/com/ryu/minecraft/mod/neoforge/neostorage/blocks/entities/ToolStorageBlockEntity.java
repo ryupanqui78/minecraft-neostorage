@@ -47,11 +47,14 @@ public class ToolStorageBlockEntity extends BaseContainerBlockEntity implements 
     
     private static final List<TagKey<Item>> ALLOWED_TAGS = List.of(ItemTags.PICKAXES, ItemTags.AXES, ItemTags.SHOVELS,
             ItemTags.HOES, SetupTags.SHEARS, SetupTags.BRUSHES, ItemTags.FISHING_ENCHANTABLE);
+    private static final String TAG_LEVEL_SLOTS = "LevelSlots";
     
     protected final ContainerData dataAccess = new ContainerData() {
-        
         @Override
         public int get(int pIndex) {
+            if (pIndex == 0) {
+                return ToolStorageBlockEntity.this.levelSlots;
+            }
             return 0;
         }
         
@@ -62,10 +65,13 @@ public class ToolStorageBlockEntity extends BaseContainerBlockEntity implements 
         
         @Override
         public void set(int pIndex, int pValue) {
-            // Nothing
+            if (pIndex == 0) {
+                ToolStorageBlockEntity.this.levelSlots = pValue;
+            }
         }
         
     };
+    
     private final ContainerOpenersCounter openersCounter = new ContainerOpenersCounter() {
         
         @Override
@@ -98,8 +104,9 @@ public class ToolStorageBlockEntity extends BaseContainerBlockEntity implements 
     protected NonNullList<ItemStack> items = NonNullList.withSize(StorageMenu.NUMBER_SLOTS_CONTAINER, ItemStack.EMPTY);
     @Nullable
     protected ResourceKey<LootTable> lootTable;
-    
     protected long lootTableSeed;
+    
+    private int levelSlots;
     
     public ToolStorageBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(SetupBlockEntity.TOOL_STORAGE.get(), pPos, pBlockState);
@@ -120,7 +127,7 @@ public class ToolStorageBlockEntity extends BaseContainerBlockEntity implements 
             } else {
                 final List<TagKey<Item>> listTags = this.getCurrentTagKeys();
                 isValid = listTags.stream().anyMatch(pStack::is);
-                if (!isValid && (listTags.size() < 2)) {
+                if (!isValid && (listTags.size() < this.getLevelSlots())) {
                     isValid = pStack.is(this.filterTag);
                 }
             }
@@ -232,6 +239,10 @@ public class ToolStorageBlockEntity extends BaseContainerBlockEntity implements 
         return this.lootTable;
     }
     
+    public int getLevelSlots() {
+        return this.levelSlots;
+    }
+    
     @Override
     public long getLootTableSeed() {
         return this.lootTableSeed;
@@ -269,6 +280,7 @@ public class ToolStorageBlockEntity extends BaseContainerBlockEntity implements 
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         if (!this.tryLoadLootTable(pTag)) {
             ContainerHelper.loadAllItems(pTag, this.items, pRegistries);
+            this.levelSlots = pTag.getByte(ToolStorageBlockEntity.TAG_LEVEL_SLOTS);
         }
     }
     
@@ -294,6 +306,7 @@ public class ToolStorageBlockEntity extends BaseContainerBlockEntity implements 
         super.saveAdditional(pTag, pRegistries);
         if (!this.trySaveLootTable(pTag)) {
             ContainerHelper.saveAllItems(pTag, this.items, pRegistries);
+            pTag.putByte(ToolStorageBlockEntity.TAG_LEVEL_SLOTS, (byte) this.levelSlots);
         }
     }
     
@@ -326,6 +339,7 @@ public class ToolStorageBlockEntity extends BaseContainerBlockEntity implements 
     public void startOpen(Player pPlayer) {
         if (!this.remove && !pPlayer.isSpectator()) {
             this.openersCounter.incrementOpeners(pPlayer, this.getLevel(), this.getBlockPos(), this.getBlockState());
+            this.levelSlots = this.getBlockState().getValue(ToolStorageBlock.LEVEL);
             this.setChanged();
         }
     }

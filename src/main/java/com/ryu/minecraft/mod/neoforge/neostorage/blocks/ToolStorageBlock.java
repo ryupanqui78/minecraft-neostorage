@@ -2,6 +2,7 @@ package com.ryu.minecraft.mod.neoforge.neostorage.blocks;
 
 import com.mojang.serialization.MapCodec;
 import com.ryu.minecraft.mod.neoforge.neostorage.blocks.entities.ToolStorageBlockEntity;
+import com.ryu.minecraft.mod.neoforge.neostorage.enums.StorageType;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -23,19 +24,23 @@ import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class ToolStorageBlock extends BaseEntityBlock {
     
     public static final String BLOCK_NAME = "toolstorage";
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
+    public static final IntegerProperty LEVEL = IntegerProperty.create("visual_slot", 1, 4);
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
-    public static final MapCodec<ToolStorageBlock> CODEC = BlockBehaviour.simpleCodec(ToolStorageBlock::new);
+    public static final MapCodec<ToolStorageBlock> CODEC = BlockBehaviour
+            .simpleCodec(properties -> new ToolStorageBlock(StorageType.ONE_ITEM, properties));
     
-    public ToolStorageBlock(Properties properties) {
+    public ToolStorageBlock(StorageType pStorageType, Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(ToolStorageBlock.FACING, Direction.NORTH)
-                .setValue(ToolStorageBlock.OPEN, Boolean.valueOf(false)));
+                .setValue(ToolStorageBlock.OPEN, Boolean.valueOf(false))
+                .setValue(ToolStorageBlock.LEVEL, pStorageType.getValue()));
     }
     
     @Override
@@ -45,7 +50,7 @@ public class ToolStorageBlock extends BaseEntityBlock {
     
     @Override
     protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
-        builder.add(ToolStorageBlock.FACING, ToolStorageBlock.OPEN);
+        builder.add(ToolStorageBlock.FACING, ToolStorageBlock.OPEN, ToolStorageBlock.LEVEL);
     }
     
     @Override

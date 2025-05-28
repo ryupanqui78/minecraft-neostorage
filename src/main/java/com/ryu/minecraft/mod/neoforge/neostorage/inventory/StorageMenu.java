@@ -35,7 +35,7 @@ public class StorageMenu extends AbstractContainerMenu {
     }
     
     public static final String MENU_NAME = "storage";
-    public static final int NUMBER_DATA_CONTAINER = 0;
+    public static final int NUMBER_DATA_CONTAINER = 1;
     public static final int NUMBER_SLOTS_CONTAINER = StorageMenu.NUMBER_OF_ROWS * StorageMenu.COLUMNS_PER_ROW;
     
     private static final int NUMBER_OF_ROWS = 6;
@@ -79,6 +79,10 @@ public class StorageMenu extends AbstractContainerMenu {
         return this.data.getContainer();
     }
     
+    public int getLevelSlot() {
+        return this.data.getLevelSlots();
+    }
+    
     protected boolean isValidItem(ItemStack pStack) {
         boolean isValid = false;
         if (this.data.getContainer().isEmpty()) {
@@ -86,6 +90,9 @@ public class StorageMenu extends AbstractContainerMenu {
         } else if (this.data.getContainer() instanceof final ToolStorageBlockEntity be) {
             final List<TagKey<Item>> listTags = be.getCurrentTagKeys();
             isValid = listTags.stream().anyMatch(pStack::is);
+            if (!isValid && (listTags.size() < be.getLevelSlots())) {
+                isValid = pStack.is(this.data.getFilterTag());
+            }
         }
         return isValid;
     }

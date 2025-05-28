@@ -1,5 +1,6 @@
 {
-  "block.neostorage.toolstorage": "Tool Storage",
+  "block.neostorage.toolstorage1": "Tool Storage (1x1)",
+  "block.neostorage.toolstorage2": "Tool Storage (1x2)",
   
   "item.neostorage.neotool": "NeoTool item",
   

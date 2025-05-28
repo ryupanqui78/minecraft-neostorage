@@ -5,6 +5,7 @@ import java.util.List;
 import org.joml.Vector3f;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.ryu.minecraft.mod.neoforge.neostorage.blocks.ToolStorageBlock;
 import com.ryu.minecraft.mod.neoforge.neostorage.blocks.entities.ToolStorageBlockEntity;
 import com.ryu.minecraft.mod.neoforge.neostorage.helpers.StorageHelper;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.data.ItemStored;
@@ -34,6 +35,7 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<ToolStora
         final Direction facing = pBlockEntity.getBlockState().getValue(HorizontalDirectionalBlock.FACING);
         final int combinedLightIn = LevelRenderer.getLightColor(pBlockEntity.getLevel(), pBlockEntity.getBlockState(),
                 pBlockEntity.getBlockPos().relative(facing));
+        final int levelSlots = pBlockEntity.getBlockState().getValue(ToolStorageBlock.LEVEL);
         final List<ItemStored> items = pBlockEntity.getItemsStoredByCount();
         if (!items.isEmpty()) {
             pPoseStack.pushPose();
@@ -41,12 +43,17 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<ToolStora
             StorageHelper.updatePostionByDirection(facing, scale, pPoseStack);
             StorageHelper.renderInformation(pPoseStack, pBuffer, pPackedOverlay, pBlockEntity.getNumberFilledSlots(),
                     pBlockEntity.getNumberTotalSlots());
-            this.renderSlot(pBlockEntity, items, pPoseStack, pBuffer, combinedLightIn, pPackedOverlay);
+            if (levelSlots == 1) {
+                this.render1Slot(pBlockEntity, items, pPoseStack, pBuffer, combinedLightIn, pPackedOverlay);
+            }
+            if (levelSlots == 2) {
+                this.render2Slot(pBlockEntity, items, pPoseStack, pBuffer, combinedLightIn, pPackedOverlay);
+            }
             pPoseStack.popPose();
         }
     }
     
-    private void renderSlot(ToolStorageBlockEntity pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int combinedOverlayIn) {
+    private void render1Slot(ToolStorageBlockEntity pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int combinedOverlayIn) {
         final ItemStack itemStack = pItemsStored.get(0).getItemStack();
         final float maxTextScale = 0.04f;
         
@@ -58,6 +65,31 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<ToolStora
             StorageHelper.renderText(pPoseStack,
                     Component.literal(ChatFormatting.WHITE + String.valueOf(pItemsStored.get(0).getCount())), pBuffer,
                     combinedOverlayIn, maxTextScale);
+        }
+    }
+    
+    private void render2Slot(ToolStorageBlockEntity pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int combinedOverlayIn) {
+        final float maxTextScale = 0.05f;
+        final RendererItemData itemData = new RendererItemData(combinedLightIn, combinedOverlayIn, maxTextScale,
+                pBlockEntity.getLevel());
+        
+        this.renderSlotItem(pItemsStored.get(0), new Vector3f(0.5f, 0.80f, 0.0005f), pPoseStack, pBuffer, itemData);
+        if (pItemsStored.size() > 1) {
+            this.renderSlotItem(pItemsStored.get(1), new Vector3f(0.5f, 0.35f, 0.0005f), pPoseStack, pBuffer, itemData);
+        }
+    }
+    
+    private void renderSlotItem(ItemStored pItemStored, Vector3f pTranslation, PoseStack pPoseStack, MultiBufferSource pBuffer, RendererItemData pRendererItemData) {
+        final ItemStack itemStack = pItemStored.getItemStack();
+        
+        if (!itemStack.isEmpty()) {
+            pPoseStack.pushPose();
+            pPoseStack.mulPose(StorageHelper.createMatrix(pTranslation, new Vector3f(0), new Vector3f(.5f, .5f, 1.0f)));
+            StorageHelper.renderItemStack(pItemStored, pPoseStack, pBuffer, pRendererItemData);
+            StorageHelper.renderText(pPoseStack,
+                    Component.literal(ChatFormatting.WHITE + String.valueOf(pItemStored.getCount())), pBuffer,
+                    pRendererItemData.getOverlayInValue(), pRendererItemData.getMaxScale());
+            pPoseStack.popPose();
         }
     }
     

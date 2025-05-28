@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "neostorage:toolstorage"
+          "name": "neostorage:toolstorage2"
         }
       ],
       "conditions": [

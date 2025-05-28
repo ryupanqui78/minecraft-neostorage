@@ -1,4 +1,4 @@
-#Neo Storage
+# Neo Storage
 
 This mod adds blocks to storage, the items that can be storage are usually tools, armors, discs and enchanted books, as they are stored one per slot.
 
@@ -18,6 +18,8 @@ Tool storage allows save tools. It can allows store 54 items of only one type (e
 This block considers as tool the pickaxes, axes, sholves, hoes, fishing rodes, brushes and shears items.
 
 #### Crafting
-The tool storage requires two blocks of andesite, two blocks of diorite, two pistons, one iron ingot, one chest and one NeoTool item.
+The tool storage that stores only one tool type requires two blocks of andesite, two blocks of diorite, one piston, two copper ingot, one chest and one NeoTool item.
 
-To get the recipe is required to have blocks of andesite or diorite, and the NeoTool item in the inventory.
+The tool storage that stores two tool types requires two blocks of andesite, two blocks of diorite, two copper ingot, two tool storage of one type and one piston.
+
+To get the recipe of one tool type is required to have blocks of andesite or diorite, and the NeoTool item in the inventory, once get this item, the other recipes will be get.
