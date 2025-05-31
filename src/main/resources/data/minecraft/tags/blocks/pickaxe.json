@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "neostorage:toolstorage1",
-    "neostorage:toolstorage2"
+    "neostorage:toolstorage2",
+    "neostorage:toolstorage3"
   ]
 }

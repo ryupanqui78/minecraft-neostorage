@@ -13,7 +13,7 @@ This item requires eight copper ingots and one lapis lazuri. To get the recipe i
 ## New Blocks
 
 ### Tool Storage
-Tool storage allows save tools. It can allows store 54 items of only one type (enchanted or not).
+Tool storage allows save tools. It can allows store 54 items of only one type (enchanted or not). Can craft a tool storage that supports more than one type.
 
 This block considers as tool the pickaxes, axes, sholves, hoes, fishing rodes, brushes and shears items.
 
@@ -21,5 +21,7 @@ This block considers as tool the pickaxes, axes, sholves, hoes, fishing rodes, b
 The tool storage that stores only one tool type requires two blocks of andesite, two blocks of diorite, one piston, two copper ingot, one chest and one NeoTool item.
 
 The tool storage that stores two tool types requires two blocks of andesite, two blocks of diorite, two copper ingot, two tool storage of one type and one piston.
+
+The tool storage that stores three tool types requires one block of andesite, two blocks of diorite, two copper ingot, three tool storage of one type and one piston.
 
 To get the recipe of one tool type is required to have blocks of andesite or diorite, and the NeoTool item in the inventory, once get this item, the other recipes will be get.
