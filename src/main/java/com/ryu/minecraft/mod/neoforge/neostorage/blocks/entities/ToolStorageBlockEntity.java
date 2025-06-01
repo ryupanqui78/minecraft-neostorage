@@ -234,13 +234,13 @@ public class ToolStorageBlockEntity extends BaseContainerBlockEntity implements 
         return listItemStored;
     }
     
+    public int getLevelSlots() {
+        return this.levelSlots;
+    }
+    
     @Override
     public ResourceKey<LootTable> getLootTable() {
         return this.lootTable;
-    }
-    
-    public int getLevelSlots() {
-        return this.levelSlots;
     }
     
     @Override

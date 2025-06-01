@@ -2,6 +2,7 @@
   "block.neostorage.toolstorage1": "Tool Storage (1x1)",
   "block.neostorage.toolstorage2": "Tool Storage (1x2)",
   "block.neostorage.toolstorage3": "Tool Storage (1+2)",
+  "block.neostorage.toolstorage4": "Tool Storage (2x2)",
   
   "item.neostorage.neotool": "NeoTool item",
   

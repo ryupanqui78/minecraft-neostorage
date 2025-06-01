@@ -24,4 +24,6 @@ The tool storage that stores two tool types requires two blocks of andesite, two
 
 The tool storage that stores three tool types requires one block of andesite, two blocks of diorite, two copper ingot, three tool storage of one type and one piston.
 
+The tool storage that stores four tool types requires one block of andesite, one block of diorite, two copper ingot, four tool storage of one type and one piston.
+
 To get the recipe of one tool type is required to have blocks of andesite or diorite, and the NeoTool item in the inventory, once get this item, the other recipes will be get.

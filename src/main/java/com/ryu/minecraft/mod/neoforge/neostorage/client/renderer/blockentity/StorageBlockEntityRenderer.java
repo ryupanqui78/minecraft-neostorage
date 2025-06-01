@@ -52,6 +52,9 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<ToolStora
             if (levelSlots == 3) {
                 this.render3Slot(pBlockEntity, items, pPoseStack, pBuffer, combinedLightIn, pPackedOverlay);
             }
+            if (levelSlots == 4) {
+                this.render4Slot(pBlockEntity, items, pPoseStack, pBuffer, combinedLightIn, pPackedOverlay);
+            }
             pPoseStack.popPose();
         }
     }
@@ -94,6 +97,26 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<ToolStora
         }
         if (pItemsStored.size() > 2) {
             this.renderSlotItem(pItemsStored.get(2), new Vector3f(0.75f, 0.35f, 0.0005f), pPoseStack, pBuffer,
+                    itemData);
+        }
+    }
+    
+    private void render4Slot(ToolStorageBlockEntity pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int combinedOverlayIn) {
+        final float maxTextScale = 0.05f;
+        final RendererItemData itemData = new RendererItemData(combinedLightIn, combinedOverlayIn, maxTextScale,
+                pBlockEntity.getLevel());
+        
+        this.renderSlotItem(pItemsStored.get(0), new Vector3f(0.25f, 0.80f, 0.0005f), pPoseStack, pBuffer, itemData);
+        if (pItemsStored.size() > 1) {
+            this.renderSlotItem(pItemsStored.get(1), new Vector3f(0.75f, 0.80f, 0.0005f), pPoseStack, pBuffer,
+                    itemData);
+        }
+        if (pItemsStored.size() > 2) {
+            this.renderSlotItem(pItemsStored.get(2), new Vector3f(0.25f, 0.35f, 0.0005f), pPoseStack, pBuffer,
+                    itemData);
+        }
+        if (pItemsStored.size() > 3) {
+            this.renderSlotItem(pItemsStored.get(3), new Vector3f(0.75f, 0.35f, 0.0005f), pPoseStack, pBuffer,
                     itemData);
         }
     }
