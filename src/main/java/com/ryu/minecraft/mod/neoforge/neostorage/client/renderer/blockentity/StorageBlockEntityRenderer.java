@@ -6,7 +6,7 @@ import org.joml.Vector3f;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.ryu.minecraft.mod.neoforge.neostorage.blocks.ToolStorageBlock;
-import com.ryu.minecraft.mod.neoforge.neostorage.blocks.entities.ToolStorageBlockEntity;
+import com.ryu.minecraft.mod.neoforge.neostorage.blocks.entities.AbstractStorageBlockEntity;
 import com.ryu.minecraft.mod.neoforge.neostorage.helpers.StorageHelper;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.data.ItemStored;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.data.RendererItemData;
@@ -24,13 +24,13 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class StorageBlockEntityRenderer implements BlockEntityRenderer<ToolStorageBlockEntity> {
+public class StorageBlockEntityRenderer<T extends AbstractStorageBlockEntity> implements BlockEntityRenderer<T> {
     
     public StorageBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
     }
     
     @Override
-    public void render(ToolStorageBlockEntity pBlockEntity, float partialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int packedLight, int pPackedOverlay) {
+    public void render(T pBlockEntity, float partialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int packedLight, int pPackedOverlay) {
         final Vector3f scale = new Vector3f(1);
         final Direction facing = pBlockEntity.getBlockState().getValue(HorizontalDirectionalBlock.FACING);
         final int combinedLightIn = LevelRenderer.getLightColor(pBlockEntity.getLevel(), pBlockEntity.getBlockState(),
@@ -59,7 +59,7 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<ToolStora
         }
     }
     
-    private void render1Slot(ToolStorageBlockEntity pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int combinedOverlayIn) {
+    private void render1Slot(T pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int combinedOverlayIn) {
         final ItemStack itemStack = pItemsStored.get(0).getItemStack();
         final float maxTextScale = 0.04f;
         
@@ -74,7 +74,7 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<ToolStora
         }
     }
     
-    private void render2Slot(ToolStorageBlockEntity pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int combinedOverlayIn) {
+    private void render2Slot(T pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int combinedOverlayIn) {
         final float maxTextScale = 0.05f;
         final RendererItemData itemData = new RendererItemData(combinedLightIn, combinedOverlayIn, maxTextScale,
                 pBlockEntity.getLevel());
@@ -85,7 +85,7 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<ToolStora
         }
     }
     
-    private void render3Slot(ToolStorageBlockEntity pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int combinedOverlayIn) {
+    private void render3Slot(T pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int combinedOverlayIn) {
         final float maxTextScale = 0.05f;
         final RendererItemData itemData = new RendererItemData(combinedLightIn, combinedOverlayIn, maxTextScale,
                 pBlockEntity.getLevel());
@@ -101,7 +101,7 @@ public class StorageBlockEntityRenderer implements BlockEntityRenderer<ToolStora
         }
     }
     
-    private void render4Slot(ToolStorageBlockEntity pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int combinedOverlayIn) {
+    private void render4Slot(T pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int combinedOverlayIn) {
         final float maxTextScale = 0.05f;
         final RendererItemData itemData = new RendererItemData(combinedLightIn, combinedOverlayIn, maxTextScale,
                 pBlockEntity.getLevel());

@@ -14,7 +14,7 @@ public class SetupMenus {
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(BuiltInRegistries.MENU,
             NeoStorage.MODID);
     
-    public static final DeferredHolder<MenuType<?>, MenuType<StorageMenu>> STORAGE_CONTAINER = SetupMenus.MENUS
+    public static final DeferredHolder<MenuType<?>, MenuType<StorageMenu>> STORAGE = SetupMenus.MENUS
             .register("storage", () -> new MenuType<StorageMenu>(StorageMenu::new, FeatureFlags.DEFAULT_FLAGS));
     
     private SetupMenus() {

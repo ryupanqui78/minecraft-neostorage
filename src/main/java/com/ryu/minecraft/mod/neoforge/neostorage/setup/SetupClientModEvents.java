@@ -24,7 +24,7 @@ public class SetupClientModEvents {
     
     @SubscribeEvent
     public static void registerMenuSreen(RegisterMenuScreensEvent event) {
-        event.register(SetupMenus.STORAGE_CONTAINER.get(), StorageScreen::new);
+        event.register(SetupMenus.STORAGE.get(), StorageScreen::new);
     }
     
     @SubscribeEvent
