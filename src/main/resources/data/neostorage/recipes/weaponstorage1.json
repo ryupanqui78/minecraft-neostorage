@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S@S",
+    "IXI",
+    "S$S"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:stone"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "@": {
+      "item": "minecraft:chest"
+    },
+    "$": {
+      "item": "minecraft:piston"
+    },
+    "X": {
+      "item": "neostorage:neotool"
+    }
+  },
+  "result": {
+    "id": "neostorage:weaponstorage1",
+    "count": 1
+  }
+}

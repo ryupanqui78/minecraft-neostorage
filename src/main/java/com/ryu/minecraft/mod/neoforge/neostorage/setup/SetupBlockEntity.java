@@ -1,8 +1,11 @@
 package com.ryu.minecraft.mod.neoforge.neostorage.setup;
 
 import com.ryu.minecraft.mod.neoforge.neostorage.NeoStorage;
+import com.ryu.minecraft.mod.neoforge.neostorage.blocks.AbstractStorageBlock;
 import com.ryu.minecraft.mod.neoforge.neostorage.blocks.ToolStorageBlock;
+import com.ryu.minecraft.mod.neoforge.neostorage.blocks.WeaponStorageBlock;
 import com.ryu.minecraft.mod.neoforge.neostorage.blocks.entities.ToolStorageBlockEntity;
+import com.ryu.minecraft.mod.neoforge.neostorage.blocks.entities.WeaponStorageBlockEntity;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
@@ -20,7 +23,13 @@ public class SetupBlockEntity {
             .register(ToolStorageBlock.BLOCK_NAME,
                     () -> BlockEntityType.Builder
                             .of(ToolStorageBlockEntity::new, SetupBlocks.TOOL_STORAGE.stream()
-                                    .map(DeferredBlock<ToolStorageBlock>::get).toList().toArray(new Block[0]))
+                                    .map(DeferredBlock<AbstractStorageBlock>::get).toList().toArray(new Block[0]))
+                            .build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<WeaponStorageBlockEntity>> WEAPON_STORAGE = SetupBlockEntity.BLOCK_ENTITIES
+            .register(WeaponStorageBlock.BLOCK_NAME,
+                    () -> BlockEntityType.Builder
+                            .of(WeaponStorageBlockEntity::new, SetupBlocks.WEAPON_STORAGE.stream()
+                                    .map(DeferredBlock<AbstractStorageBlock>::get).toList().toArray(new Block[0]))
                             .build(null));
     
     private SetupBlockEntity() {

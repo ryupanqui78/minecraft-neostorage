@@ -21,6 +21,7 @@ public class SetupCreativeModTab {
                             .icon(SetupItems.NEOTOOL::toStack).displayItems((parameters, output) -> {
                                 output.accept(SetupItems.NEOTOOL.get());
                                 SetupBlocks.TOOL_STORAGE.forEach(output::accept);
+                                SetupBlocks.WEAPON_STORAGE.forEach(output::accept);
                             }).build());
     
     private SetupCreativeModTab() {

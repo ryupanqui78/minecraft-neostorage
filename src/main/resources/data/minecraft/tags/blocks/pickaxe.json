@@ -4,6 +4,10 @@
     "neostorage:toolstorage1",
     "neostorage:toolstorage2",
     "neostorage:toolstorage3",
-    "neostorage:toolstorage4"
+    "neostorage:toolstorage4",
+    "neostorage:weaponstorage1",
+    "neostorage:weaponstorage2",
+    "neostorage:weaponstorage3",
+    "neostorage:weaponstorage4"
   ]
 }

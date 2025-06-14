@@ -1,14 +1,19 @@
 {
-  "block.neostorage.toolstorage1": "Tool Storage (1x1)",
-  "block.neostorage.toolstorage2": "Tool Storage (1x2)",
-  "block.neostorage.toolstorage3": "Tool Storage (1+2)",
+  "block.neostorage.toolstorage1": "Tool Storage",
+  "block.neostorage.toolstorage2": "Tool Storage (1x1)",
+  "block.neostorage.toolstorage3": "Tool Storage (1x2)",
   "block.neostorage.toolstorage4": "Tool Storage (2x2)",
+  "block.neostorage.weaponstorage1": "Weapon Storage",
+  "block.neostorage.weaponstorage2": "Weapon Storage (1x1)",
+  "block.neostorage.weaponstorage3": "Weapon Storage (1x2)",
+  "block.neostorage.weaponstorage4": "Weapon Storage (2x2)",
   
   "item.neostorage.neotool": "NeoTool item",
   
   "itemGroup.neostorage.neostorage": "Neo Storage items",
   
   "screen.container.toolstorage": "Tool Storage",
+  "screen.container.weaponstorage": "Weapon Storage",
   
   "text.storage.fill.information.literal": "Stored %s of %s"
 }

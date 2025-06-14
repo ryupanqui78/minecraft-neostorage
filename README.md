@@ -15,7 +15,7 @@ This item requires eight copper ingots and one lapis lazuri. To get the recipe i
 ### Tool Storage
 Tool storage allows save tools. It can allows store 54 items of only one type (enchanted or not). Can craft a tool storage that supports more than one type.
 
-This block considers as tool the pickaxes, axes, sholves, hoes, fishing rodes, brushes and shears items.
+This block considers as tool the pickaxes, axes, sholves, hoes, fishing rodes, brushes and shears items. It has four types variants to store one, two, three and four tool types in the same storage.
 
 #### Crafting
 The tool storage that stores only one tool type requires two blocks of andesite, two blocks of diorite, one piston, two copper ingot, one chest and one NeoTool item.
@@ -27,3 +27,19 @@ The tool storage that stores three tool types requires one block of andesite, tw
 The tool storage that stores four tool types requires one block of andesite, one block of diorite, two copper ingot, four tool storage of one type and one piston.
 
 To get the recipe of one tool type is required to have blocks of andesite or diorite, and the NeoTool item in the inventory, once get this item, the other recipes will be get.
+
+### Weapon Storage
+Weapon storage allows save weapons. It can allows store 54 items of only one type (enchanted or not). Can craft a tool storage that supports more than one type.
+
+This block considers as weapon the swords, bows, crossbows, tridents and shields items. It has four types variants to store one, two, three and four weapon types in the same storage.
+
+#### Crafting
+The weapon storage that stores only one weapon type requires four stones, one piston, two iron ingot, one chest and one NeoTool item.
+
+The weapon storage that stores two weapon types requires three stones, one piston, two iron ingot and two weapon storage.
+
+The weapon storage that stores three weapon types requires two stones, one piston, two iron ingot and three weapon storage.
+
+The weapon storage that stores four weapon types requires one stone, one piston, two iron ingot and four weapon storage.
+
+To get the recipe of one weapon type is required to have blocks of stone, and the NeoTool item in the inventory, once get this item, the other recipes will be get.

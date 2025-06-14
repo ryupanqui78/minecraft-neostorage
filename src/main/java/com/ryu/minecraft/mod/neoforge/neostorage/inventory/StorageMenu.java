@@ -2,7 +2,7 @@ package com.ryu.minecraft.mod.neoforge.neostorage.inventory;
 
 import java.util.List;
 
-import com.ryu.minecraft.mod.neoforge.neostorage.blocks.entities.ToolStorageBlockEntity;
+import com.ryu.minecraft.mod.neoforge.neostorage.blocks.entities.AbstractStorageBlockEntity;
 import com.ryu.minecraft.mod.neoforge.neostorage.helpers.StorageHelper;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.data.StorageMenuData;
 import com.ryu.minecraft.mod.neoforge.neostorage.setup.SetupMenus;
@@ -106,7 +106,7 @@ public class StorageMenu extends AbstractContainerMenu {
         boolean isValid = false;
         if (this.data.getContainer().isEmpty()) {
             isValid = pStack.is(this.data.getFilterTag());
-        } else if (this.data.getContainer() instanceof final ToolStorageBlockEntity be) {
+        } else if (this.data.getContainer() instanceof final AbstractStorageBlockEntity be) {
             final List<TagKey<Item>> listTags = be.getCurrentTagKeys();
             isValid = listTags.stream().anyMatch(pStack::is);
             if (!isValid && (listTags.size() < be.getLevelSlots())) {

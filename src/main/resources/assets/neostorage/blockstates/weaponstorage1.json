@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "neostorage:block/weaponstorage1"
+    },
+    "facing=east": {
+      "model": "neostorage:block/weaponstorage1",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "neostorage:block/weaponstorage1",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "neostorage:block/weaponstorage1",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S@S",
+    "I$I",
+    "@S@"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:stone"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "@": {
+      "item": "neostorage:weaponstorage1"
+    },
+    "$": {
+      "item": "minecraft:piston"
+    }
+  },
+  "result": {
+    "id": "neostorage:weaponstorage3",
+    "count": 1
+  }
+}
