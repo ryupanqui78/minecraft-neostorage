@@ -19,9 +19,9 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
     
     private static final int LATERAL_SIZE = 23;
     private static final int OFFSET_TAB_BUTTON_X = 165;
-    private static final ResourceLocation TEXTURE_BACKGROUND = new ResourceLocation(NeoStorage.MODID,
+    private static final ResourceLocation TEXTURE_BACKGROUND = ResourceLocation.fromNamespaceAndPath(NeoStorage.MODID,
             "textures/gui/container/upgradecontainer.png");
-    private static final ResourceLocation TEXTURE = new ResourceLocation(NeoStorage.MODID,
+    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(NeoStorage.MODID,
             "textures/gui/container/storage.png");
     
     private final ResourceLocation currentMainResource;
@@ -41,7 +41,7 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         final int edgeX = (this.width - this.imageWidth) / 2;
         final int edgeY = (this.height - this.imageHeight) / 2;
-        final double posX = 182 - (mouseX - (edgeX + LATERAL_SIZE + 5));
+        final double posX = 182 - (mouseX - (edgeX + StorageScreen.LATERAL_SIZE + 5));
         final double pMouseY = mouseY - (edgeY + 16);
         final boolean isInsideButtonX = (posX > 0) && (posX < 16);
         final int posY = (int) (pMouseY - 3) % 18;

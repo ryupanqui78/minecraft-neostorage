@@ -2,13 +2,11 @@
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_resources": {
-    "trigger": "minecraft:inventory_changed",
+      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [
-              "neostorage:neotool"
-            ]
+            "items": "neostorage:neotool"
           },
           {
             "items": [

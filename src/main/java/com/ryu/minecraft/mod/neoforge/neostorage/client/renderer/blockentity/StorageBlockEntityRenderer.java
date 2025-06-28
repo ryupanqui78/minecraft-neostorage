@@ -5,7 +5,7 @@ import java.util.List;
 import org.joml.Vector3f;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.ryu.minecraft.mod.neoforge.neostorage.blocks.ToolStorageBlock;
+import com.ryu.minecraft.mod.neoforge.neostorage.blocks.AbstractStorageBlock;
 import com.ryu.minecraft.mod.neoforge.neostorage.blocks.entities.AbstractStorageBlockEntity;
 import com.ryu.minecraft.mod.neoforge.neostorage.helpers.StorageHelper;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.data.ItemStored;
@@ -35,7 +35,7 @@ public class StorageBlockEntityRenderer<T extends AbstractStorageBlockEntity> im
         final Direction facing = pBlockEntity.getBlockState().getValue(HorizontalDirectionalBlock.FACING);
         final int combinedLightIn = LevelRenderer.getLightColor(pBlockEntity.getLevel(), pBlockEntity.getBlockState(),
                 pBlockEntity.getBlockPos().relative(facing));
-        final int levelSlots = pBlockEntity.getBlockState().getValue(ToolStorageBlock.LEVEL);
+        final int levelSlots = pBlockEntity.getBlockState().getValue(AbstractStorageBlock.LEVEL);
         final List<ItemStored> items = pBlockEntity.getItemsStoredByCount();
         if (!items.isEmpty()) {
             pPoseStack.pushPose();
