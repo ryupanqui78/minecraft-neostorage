@@ -15,7 +15,8 @@ import net.minecraft.world.level.block.state.BlockState;
 public class WeaponStorageBlockEntity extends AbstractStorageBlockEntity {
     
     private static final List<TagKey<Item>> ALLOWED_TAGS = List.of(ItemTags.BOW_ENCHANTABLE,
-            ItemTags.CROSSBOW_ENCHANTABLE, ItemTags.TRIDENT_ENCHANTABLE, ItemTags.SWORDS, SetupTags.SHIELDS);
+            ItemTags.CROSSBOW_ENCHANTABLE, ItemTags.TRIDENT_ENCHANTABLE, ItemTags.SWORDS, SetupTags.SHIELDS,
+            ItemTags.MACE_ENCHANTABLE);
     
     public WeaponStorageBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(SetupBlockEntity.WEAPON_STORAGE.get(), pPos, pBlockState, SetupTags.STORE_WEAPONS);

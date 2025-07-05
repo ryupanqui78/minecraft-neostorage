@@ -1,4 +1,7 @@
-0.1.4-1.20.6
+0.2.4-1.21.1
+ - Migrating to 1.21.1
+ - Adding Mace to Weapon storage.
+0.1.4-1.21.0
  - Migrating to 1.21.0
 0.0.4-1.20.6
  - Adding Weapon Storage block.

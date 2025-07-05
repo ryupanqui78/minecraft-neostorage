@@ -5,6 +5,7 @@
     "minecraft:bow",
     "minecraft:crossbow",
     "minecraft:trident",
+    "#minecraft:enchantable/mace",
     "#neostorage:shields"
   ]
 }
