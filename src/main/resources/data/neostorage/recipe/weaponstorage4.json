@@ -6,18 +6,10 @@
     "@S@"
   ],
   "key": {
-    "S": {
-      "item": "minecraft:stone"
-    },
-    "I": {
-      "item": "minecraft:iron_ingot"
-    },
-    "@": {
-      "item": "neostorage:weaponstorage1"
-    },
-    "$": {
-      "item": "minecraft:piston"
-    }
+    "S": "minecraft:stone",
+    "I": "minecraft:iron_ingot",
+    "@": "neostorage:weaponstorage1",
+    "$": "minecraft:piston"
   },
   "result": {
     "id": "neostorage:weaponstorage4",

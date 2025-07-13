@@ -5,18 +5,19 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-@EventBusSubscriber(modid = NeoStorage.MODID)
-public class Config {
+@EventBusSubscriber(modid = NeoStorage.MODID, bus = EventBusSubscriber.Bus.MOD)
+public class NeoStorageConfig {
     
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
     
-    protected static final ModConfigSpec SPEC = Config.BUILDER.build();
+    static final ModConfigSpec SPEC = NeoStorageConfig.BUILDER.build();
     
     @SubscribeEvent
-    protected static void onLoad(final ModConfigEvent event) {
-        // Nothing for now
+    static void onLoad(final ModConfigEvent event) {
+        NeoStorage.LOGGER.debug("Loading configuration ...");
     }
     
-    private Config() {
+    private NeoStorageConfig() {
     }
+    
 }

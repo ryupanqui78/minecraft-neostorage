@@ -21,16 +21,12 @@ public class SetupBlockEntity {
     
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ToolStorageBlockEntity>> TOOL_STORAGE = SetupBlockEntity.BLOCK_ENTITIES
             .register(ToolStorageBlock.BLOCK_NAME,
-                    () -> BlockEntityType.Builder
-                            .of(ToolStorageBlockEntity::new, SetupBlocks.TOOL_STORAGE.stream()
-                                    .map(DeferredBlock<AbstractStorageBlock>::get).toList().toArray(new Block[0]))
-                            .build(null));
+                    () -> new BlockEntityType<>(ToolStorageBlockEntity::new, SetupBlocks.TOOL_STORAGE.stream()
+                            .map(DeferredBlock<AbstractStorageBlock>::get).toList().toArray(new Block[0])));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<WeaponStorageBlockEntity>> WEAPON_STORAGE = SetupBlockEntity.BLOCK_ENTITIES
             .register(WeaponStorageBlock.BLOCK_NAME,
-                    () -> BlockEntityType.Builder
-                            .of(WeaponStorageBlockEntity::new, SetupBlocks.WEAPON_STORAGE.stream()
-                                    .map(DeferredBlock<AbstractStorageBlock>::get).toList().toArray(new Block[0]))
-                            .build(null));
+                    () -> new BlockEntityType<>(WeaponStorageBlockEntity::new, SetupBlocks.WEAPON_STORAGE.stream()
+                            .map(DeferredBlock<AbstractStorageBlock>::get).toList().toArray(new Block[0])));
     
     private SetupBlockEntity() {
     }

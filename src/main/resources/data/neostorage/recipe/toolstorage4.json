@@ -6,21 +6,11 @@
     "@A@"
   ],
   "key": {
-    "D": {
-      "item": "minecraft:diorite"
-    },
-    "A": {
-      "item": "minecraft:andesite"
-    },
-    "C": {
-      "item": "minecraft:copper_ingot"
-    },
-    "@": {
-      "item": "neostorage:toolstorage1"
-    },
-    "$": {
-      "item": "minecraft:piston"
-    }
+    "D": "minecraft:diorite",
+    "A":"minecraft:andesite",
+    "C": "minecraft:copper_ingot",
+    "@": "neostorage:toolstorage1",
+    "$": "minecraft:piston"
   },
   "result": {
     "id": "neostorage:toolstorage4",

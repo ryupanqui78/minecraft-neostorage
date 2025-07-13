@@ -6,24 +6,12 @@
     "A$A"
   ],
   "key": {
-    "D": {
-      "item": "minecraft:diorite"
-    },
-    "A": {
-      "item": "minecraft:andesite"
-    },
-    "C": {
-      "item": "minecraft:copper_ingot"
-    },
-    "@": {
-      "item": "minecraft:chest"
-    },
-    "$": {
-      "item": "minecraft:piston"
-    },
-    "X": {
-      "item": "neostorage:neotool"
-    }
+    "D": "minecraft:diorite",
+    "A": "minecraft:andesite",
+    "C": "minecraft:copper_ingot",
+    "@": "minecraft:chest",
+    "$": "minecraft:piston",
+    "X": "neostorage:neotool"
   },
   "result": {
     "id": "neostorage:toolstorage1",

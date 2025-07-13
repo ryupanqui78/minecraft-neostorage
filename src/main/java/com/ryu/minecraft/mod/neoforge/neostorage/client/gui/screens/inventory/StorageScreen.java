@@ -5,6 +5,7 @@ import com.ryu.minecraft.mod.neoforge.neostorage.inventory.StorageMenu;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -17,6 +18,7 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
     protected static final int SLOT_SIZE = 18;
     protected static final int SLOT_CONTENT_SIZE = 16;
     
+    private static final int IMAGE_SIZE = 256;
     private static final int LATERAL_SIZE = 23;
     private static final int OFFSET_TAB_BUTTON_X = 165;
     private static final ResourceLocation TEXTURE_BACKGROUND = ResourceLocation.fromNamespaceAndPath(NeoStorage.MODID,
@@ -67,14 +69,17 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
         final int edgeY = (this.height - this.imageHeight) / 2;
         final int statContentX = edgeX + StorageScreen.LATERAL_SIZE;
         
-        pGuiGraphics.blit(this.currentMainResource, statContentX, edgeY, 0, 0,
-                this.imageWidth - StorageScreen.LATERAL_SIZE, this.imageHeight);
-        pGuiGraphics.blit(this.currentMainResource, edgeX, edgeY, 233, 0, 23, 143);
+        pGuiGraphics.blit(RenderType::guiTextured, this.currentMainResource, statContentX, edgeY, 0, 0,
+                this.imageWidth - StorageScreen.LATERAL_SIZE, this.imageHeight, StorageScreen.IMAGE_SIZE,
+                StorageScreen.IMAGE_SIZE);
+        pGuiGraphics.blit(RenderType::guiTextured, this.currentMainResource, edgeX, edgeY, 233, 0, 23, 143,
+                StorageScreen.IMAGE_SIZE, StorageScreen.IMAGE_SIZE);
         this.renderContentBg(pGuiGraphics, statContentX + 5, edgeY + 16);
     }
     
     private void renderContentBg(GuiGraphics pGuiGraphics, int pStartX, int pStartY) {
-        pGuiGraphics.blit(StorageScreen.TEXTURE, pStartX, pStartY, 0, 0, 166, 112);
+        pGuiGraphics.blit(RenderType::guiTextured, StorageScreen.TEXTURE, pStartX, pStartY, 0, 0, 166, 112,
+                StorageScreen.IMAGE_SIZE, StorageScreen.IMAGE_SIZE);
         
         // Disabled buttons
         if (this.menu.getLevelSlot() > 1) {
@@ -95,9 +100,10 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
         final int offsetTabY = pStartY + 2 + (18 * pIndex);
         final int offsetNumberY = pStartY + 6 + (18 * pIndex);
         
-        pGuiGraphics.blit(StorageScreen.TEXTURE, pStartX + StorageScreen.OFFSET_TAB_BUTTON_X, offsetTabY, 0, 113, 17,
-                20);
-        pGuiGraphics.blit(StorageScreen.TEXTURE, pStartX + 169, offsetNumberY, 10 * pIndex, 134, 9, 11);
+        pGuiGraphics.blit(RenderType::guiTextured, StorageScreen.TEXTURE, pStartX + StorageScreen.OFFSET_TAB_BUTTON_X,
+                offsetTabY, 0, 113, 17, 20, StorageScreen.IMAGE_SIZE, StorageScreen.IMAGE_SIZE);
+        pGuiGraphics.blit(RenderType::guiTextured, StorageScreen.TEXTURE, pStartX + 169, offsetNumberY, 10.0f * pIndex,
+                134, 9, 11, StorageScreen.IMAGE_SIZE, StorageScreen.IMAGE_SIZE);
     }
     
     private void renderEnabledTabNumber(GuiGraphics pGuiGraphics, int pStartX, int pStartY, int pIndex, boolean pIsSelected) {
@@ -105,9 +111,11 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
             final int offsetTabY = pStartY + 2 + (18 * pIndex);
             final int offsetNumberY = pStartY + 6 + (18 * pIndex);
             
-            pGuiGraphics.blit(StorageScreen.TEXTURE, pStartX + StorageScreen.OFFSET_TAB_BUTTON_X, offsetTabY, 18, 113,
-                    17, 20);
-            pGuiGraphics.blit(StorageScreen.TEXTURE, pStartX + 169, offsetNumberY, 10 * pIndex, 146, 9, 11);
+            pGuiGraphics.blit(RenderType::guiTextured, StorageScreen.TEXTURE,
+                    pStartX + StorageScreen.OFFSET_TAB_BUTTON_X, offsetTabY, 18, 113, 17, 20, StorageScreen.IMAGE_SIZE,
+                    StorageScreen.IMAGE_SIZE);
+            pGuiGraphics.blit(RenderType::guiTextured, StorageScreen.TEXTURE, pStartX + 169, offsetNumberY,
+                    10.0f * pIndex, 146, 9, 11, StorageScreen.IMAGE_SIZE, StorageScreen.IMAGE_SIZE);
         }
     }
     

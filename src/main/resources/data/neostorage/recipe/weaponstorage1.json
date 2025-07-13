@@ -6,21 +6,11 @@
     "S$S"
   ],
   "key": {
-    "S": {
-      "item": "minecraft:stone"
-    },
-    "I": {
-      "item": "minecraft:iron_ingot"
-    },
-    "@": {
-      "item": "minecraft:chest"
-    },
-    "$": {
-      "item": "minecraft:piston"
-    },
-    "X": {
-      "item": "neostorage:neotool"
-    }
+    "S": "minecraft:stone",
+    "I": "minecraft:iron_ingot",
+    "@": "minecraft:chest",
+    "$": "minecraft:piston",
+    "X": "neostorage:neotool"
   },
   "result": {
     "id": "neostorage:weaponstorage1",
