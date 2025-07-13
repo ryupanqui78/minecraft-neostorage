@@ -6,12 +6,8 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "minecraft:copper_ingot"
-    },
-    "X": {
-      "item": "minecraft:lapis_lazuli"
-    }
+    "#": "minecraft:copper_ingot",
+    "X": "minecraft:lapis_lazuli"
   },
   "result": {
     "id": "neostorage:neotool",
