@@ -20,6 +20,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
@@ -30,32 +31,32 @@ public class StorageBlockEntityRenderer<T extends AbstractStorageBlockEntity> im
     }
     
     @Override
-    public void render(T pBlockEntity, float partialTick, PoseStack pPoseStack, MultiBufferSource pBuffer, int packedLight, int pPackedOverlay) {
+    public void render(T blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay, Vec3 cameraPos) {
         final Vector3f scale = new Vector3f(1);
-        final Direction facing = pBlockEntity.getBlockState().getValue(HorizontalDirectionalBlock.FACING);
-        final int combinedLightIn = LevelRenderer.getLightColor(pBlockEntity.getLevel(), pBlockEntity.getBlockState(),
-                pBlockEntity.getBlockPos().relative(facing));
-        final int levelSlots = pBlockEntity.getBlockState().getValue(AbstractStorageBlock.LEVEL);
-        final List<ItemStored> items = pBlockEntity.getItemsStoredByCount();
+        final Direction facing = blockEntity.getBlockState().getValue(HorizontalDirectionalBlock.FACING);
+        final int combinedLightIn = LevelRenderer.getLightColor(blockEntity.getLevel(),
+                blockEntity.getBlockPos().relative(facing));
+        final int levelSlots = blockEntity.getBlockState().getValue(AbstractStorageBlock.LEVEL);
+        final List<ItemStored> items = blockEntity.getItemsStoredByCount();
         if (!items.isEmpty()) {
-            pPoseStack.pushPose();
-            pPoseStack.mulPose(StorageHelper.createMatrix(new Vector3f(0), new Vector3f(0, 180, 0), scale));
-            StorageHelper.updatePostionByDirection(facing, scale, pPoseStack);
-            StorageHelper.renderInformation(pPoseStack, pBuffer, pPackedOverlay, pBlockEntity.getNumberFilledSlots(),
-                    pBlockEntity.getNumberTotalSlots());
+            poseStack.pushPose();
+            poseStack.mulPose(StorageHelper.createMatrix(new Vector3f(0), new Vector3f(0, 180, 0), scale));
+            StorageHelper.updatePostionByDirection(facing, scale, poseStack);
+            StorageHelper.renderInformation(poseStack, bufferSource, packedOverlay, blockEntity.getNumberFilledSlots(),
+                    blockEntity.getNumberTotalSlots());
             if (levelSlots == 1) {
-                this.render1Slot(pBlockEntity, items, pPoseStack, pBuffer, combinedLightIn, pPackedOverlay);
+                this.render1Slot(blockEntity, items, poseStack, bufferSource, combinedLightIn, packedOverlay);
             }
             if (levelSlots == 2) {
-                this.render2Slot(pBlockEntity, items, pPoseStack, pBuffer, combinedLightIn, pPackedOverlay);
+                this.render2Slot(blockEntity, items, poseStack, bufferSource, combinedLightIn, packedOverlay);
             }
             if (levelSlots == 3) {
-                this.render3Slot(pBlockEntity, items, pPoseStack, pBuffer, combinedLightIn, pPackedOverlay);
+                this.render3Slot(blockEntity, items, poseStack, bufferSource, combinedLightIn, packedOverlay);
             }
             if (levelSlots == 4) {
-                this.render4Slot(pBlockEntity, items, pPoseStack, pBuffer, combinedLightIn, pPackedOverlay);
+                this.render4Slot(blockEntity, items, poseStack, bufferSource, combinedLightIn, packedOverlay);
             }
-            pPoseStack.popPose();
+            poseStack.popPose();
         }
     }
     

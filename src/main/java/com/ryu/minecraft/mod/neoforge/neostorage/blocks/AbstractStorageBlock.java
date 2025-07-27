@@ -1,19 +1,15 @@
 package com.ryu.minecraft.mod.neoforge.neostorage.blocks;
 
-import com.ryu.minecraft.mod.neoforge.neostorage.blocks.entities.AbstractStorageBlockEntity;
 import com.ryu.minecraft.mod.neoforge.neostorage.enums.StorageType;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -54,22 +50,23 @@ public abstract class AbstractStorageBlock extends BaseEntityBlock {
                 context.getHorizontalDirection().getOpposite());
     }
     
-    @Override
-    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
-        if (!pState.is(pNewState.getBlock())) {
-            final BlockState airState = Blocks.AIR.defaultBlockState();
-            if (pLevel.getBlockEntity(pPos) instanceof final AbstractStorageBlockEntity be) {
-                if (pLevel instanceof ServerLevel) {
-                    Containers.dropContents(pLevel, pPos, be);
-                }
-                pLevel.setBlock(pPos, airState, 1);
-                pLevel.updateNeighbourForOutputSignal(pPos, this);
-            } else {
-                pLevel.setBlock(pPos, airState, 1);
-            }
-        }
-    }
-    
+    //
+    // @Override
+    // public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
+    // if (!pState.is(pNewState.getBlock())) {
+    // final BlockState airState = Blocks.AIR.defaultBlockState();
+    // if (pLevel.getBlockEntity(pPos) instanceof final AbstractStorageBlockEntity be) {
+    // if (pLevel instanceof ServerLevel) {
+    // Containers.dropContents(pLevel, pPos, be);
+    // }
+    // pLevel.setBlock(pPos, airState, 1);
+    // pLevel.updateNeighbourForOutputSignal(pPos, this);
+    // } else {
+    // pLevel.setBlock(pPos, airState, 1);
+    // }
+    // }
+    // }
+    //
     @Override
     protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHitResult) {
         if (pLevel.isClientSide) {

@@ -270,7 +270,7 @@ public abstract class AbstractStorageBlockEntity extends BaseContainerBlockEntit
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         if (!this.tryLoadLootTable(pTag)) {
             ContainerHelper.loadAllItems(pTag, this.items, pRegistries);
-            this.levelSlots = pTag.getByte(AbstractStorageBlockEntity.TAG_LEVEL_SLOTS);
+            this.levelSlots = pTag.getByteOr(AbstractStorageBlockEntity.TAG_LEVEL_SLOTS, (byte) 0);
         }
     }
     
