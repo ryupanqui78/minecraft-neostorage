@@ -13,10 +13,14 @@ public class SetupTags {
             .create(ResourceLocation.fromNamespaceAndPath(NeoStorage.MODID, "brushes"));
     public static final TagKey<Item> ELYTRAS = ItemTags
             .create(ResourceLocation.fromNamespaceAndPath(NeoStorage.MODID, "elytras"));
+    public static final TagKey<Item> HORSE_ARMORS = ItemTags
+            .create(ResourceLocation.fromNamespaceAndPath(NeoStorage.MODID, "horse_armors"));
     public static final TagKey<Item> SHEARS = ItemTags
             .create(ResourceLocation.fromNamespaceAndPath(NeoStorage.MODID, "shears"));
     public static final TagKey<Item> SHIELDS = ItemTags
             .create(ResourceLocation.fromNamespaceAndPath(NeoStorage.MODID, "shields"));
+    public static final TagKey<Item> WOLF_ARMORS = ItemTags
+            .create(ResourceLocation.fromNamespaceAndPath(NeoStorage.MODID, "wolf_armors"));
     
     public static final TagKey<Item> STORE_ARMORS = ItemTags
             .create(ResourceLocation.fromNamespaceAndPath(NeoStorage.MODID, "store_armors"));

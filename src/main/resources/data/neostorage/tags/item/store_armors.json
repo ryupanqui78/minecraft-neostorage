@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:enchantable/armor"
+    "#minecraft:enchantable/armor",
+    "#neostorage:wolf_armors",
+    "#neostorage:horse_armors"
   ]
 }
