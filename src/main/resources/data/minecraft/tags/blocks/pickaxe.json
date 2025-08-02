@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
+    "neostorage:armorstorage1",
+    "neostorage:armorstorage2",
+    "neostorage:armorstorage3",
+    "neostorage:armorstorage4",
     "neostorage:toolstorage1",
     "neostorage:toolstorage2",
     "neostorage:toolstorage3",

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "B@B",
+    "CXC",
+    "B$B"
+  ],
+  "key": {
+    "B": "minecraft:blackstone",
+    "C": "minecraft:copper_ingot",
+    "@": "minecraft:chest",
+    "$": "minecraft:piston",
+    "X": "neostorage:neotool"
+  },
+  "result": {
+    "id": "neostorage:armorstorage1",
+    "count": 1
+  }
+}

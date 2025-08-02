@@ -1,0 +1,6 @@
+{
+  "parent": "neostorage:block/armorstorage1",
+  "textures": {
+    "front": "neostorage:block/armorstorage_front3"
+  }
+}

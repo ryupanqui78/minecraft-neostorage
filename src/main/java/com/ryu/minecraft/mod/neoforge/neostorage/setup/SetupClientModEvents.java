@@ -20,6 +20,7 @@ public class SetupClientModEvents {
     
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(SetupBlockEntity.ARMOR_STORAGE.get(), StorageBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(SetupBlockEntity.TOOL_STORAGE.get(), StorageBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(SetupBlockEntity.WEAPON_STORAGE.get(), StorageBlockEntityRenderer::new);
     }

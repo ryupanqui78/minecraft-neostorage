@@ -1,4 +1,8 @@
 {
+  "block.neostorage.armorstorage1": "Armor Storage",
+  "block.neostorage.armorstorage2": "Armor Storage (1x1)",
+  "block.neostorage.armorstorage3": "Armor Storage (1x2)",
+  "block.neostorage.armorstorage4": "Armor Storage (2x2)",
   "block.neostorage.toolstorage1": "Tool Storage",
   "block.neostorage.toolstorage2": "Tool Storage (1x1)",
   "block.neostorage.toolstorage3": "Tool Storage (1x2)",
@@ -12,6 +16,7 @@
   
   "itemGroup.neostorage.neostorage": "Neo Storage items",
   
+  "screen.container.armorstorage": "Armor Storage",
   "screen.container.toolstorage": "Tool Storage",
   "screen.container.weaponstorage": "Weapon Storage",
   
