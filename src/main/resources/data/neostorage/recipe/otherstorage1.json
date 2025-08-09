@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "D@D",
+    "CXC",
+    "A$A"
+  ],
+  "key": {
+    "D": "minecraft:sand",
+    "A": "minecraft:red_sand",
+    "C": "minecraft:copper_ingot",
+    "@": "minecraft:chest",
+    "$": "minecraft:piston",
+    "X": "neostorage:neotool"
+  },
+  "result": {
+    "id": "neostorage:otherstorage1",
+    "count": 1
+  }
+}

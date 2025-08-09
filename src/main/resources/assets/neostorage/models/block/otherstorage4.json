@@ -1,0 +1,6 @@
+{
+  "parent": "neostorage:block/otherstorage1",
+  "textures": {
+    "front": "neostorage:block/otherstorage_front4"
+  }
+}

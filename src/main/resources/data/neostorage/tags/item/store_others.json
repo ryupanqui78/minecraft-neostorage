@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "#neostorage:flint_and_steels",
+    "#neostorage:filled_maps",
+    "#neostorage:goat_horns",
+    "#neostorage:soups",
+    "#neostorage:potions",
+    "#neostorage:totems"
+  ]
+}

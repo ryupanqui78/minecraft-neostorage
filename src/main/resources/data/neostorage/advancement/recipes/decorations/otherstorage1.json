@@ -1,0 +1,38 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_resources": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "neostorage:neotool"
+          },
+          {
+            "items": [
+              "minecraft:sand",
+              "minecraft:red_sand"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neostorage:otherstorage1"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_resources"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neostorage:otherstorage1"
+    ]
+  }
+}

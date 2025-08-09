@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import com.ryu.minecraft.mod.neoforge.neostorage.NeoStorage;
 import com.ryu.minecraft.mod.neoforge.neostorage.blocks.AbstractStorageBlock;
 import com.ryu.minecraft.mod.neoforge.neostorage.blocks.ArmorStorageBlock;
+import com.ryu.minecraft.mod.neoforge.neostorage.blocks.OtherStorageBlock;
 import com.ryu.minecraft.mod.neoforge.neostorage.blocks.ToolStorageBlock;
 import com.ryu.minecraft.mod.neoforge.neostorage.blocks.WeaponStorageBlock;
 import com.ryu.minecraft.mod.neoforge.neostorage.enums.StorageType;
@@ -23,6 +24,8 @@ public class SetupBlocks {
     
     public static final List<DeferredBlock<AbstractStorageBlock>> ARMOR_STORAGE = List
             .copyOf(SetupBlocks.registerStorageLevels(ArmorStorageBlock.BLOCK_NAME, 3f, ArmorStorageBlock.class));
+    public static final List<DeferredBlock<AbstractStorageBlock>> OTHER_STORAGE = List
+            .copyOf(SetupBlocks.registerStorageLevels(OtherStorageBlock.BLOCK_NAME, 2.5f, OtherStorageBlock.class));
     public static final List<DeferredBlock<AbstractStorageBlock>> TOOL_STORAGE = List
             .copyOf(SetupBlocks.registerStorageLevels(ToolStorageBlock.BLOCK_NAME, 3f, ToolStorageBlock.class));
     public static final List<DeferredBlock<AbstractStorageBlock>> WEAPON_STORAGE = List
