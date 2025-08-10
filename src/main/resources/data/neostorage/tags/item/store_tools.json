@@ -3,6 +3,7 @@
   "values": [
     "#minecraft:enchantable/mining",
     "#minecraft:enchantable/fishing",
-    "minecraft:brush"
+    "#minecraft:bundles",
+    "#neostorage:brushes"
   ]
 }

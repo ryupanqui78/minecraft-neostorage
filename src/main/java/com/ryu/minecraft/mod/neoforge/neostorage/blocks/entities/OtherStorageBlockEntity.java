@@ -14,7 +14,8 @@ import net.minecraft.world.level.block.state.BlockState;
 public class OtherStorageBlockEntity extends AbstractStorageBlockEntity {
     
     private static final List<TagKey<Item>> ALLOWED_TAGS = List.of(SetupTags.POTIONS, SetupTags.SOUPS,
-            SetupTags.FILLED_MAPS, SetupTags.FLIT_AND_STEELS, SetupTags.GOAT_HORNS, SetupTags.TOTEMS);
+            SetupTags.FILLED_MAPS, SetupTags.FLIT_AND_STEELS, SetupTags.GOAT_HORNS, SetupTags.TOTEMS,
+            SetupTags.SPYGLASSES, SetupTags.WRITABLE_BOOKS);
     
     public OtherStorageBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(SetupBlockEntity.OTHER_STORAGE.get(), pPos, pBlockState, SetupTags.STORE_OTHERS);

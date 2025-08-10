@@ -31,10 +31,14 @@ public class SetupTags {
             .create(ResourceLocation.fromNamespaceAndPath(NeoStorage.MODID, "shields"));
     public static final TagKey<Item> SOUPS = ItemTags
             .create(ResourceLocation.fromNamespaceAndPath(NeoStorage.MODID, "soups"));
+    public static final TagKey<Item> SPYGLASSES = ItemTags
+            .create(ResourceLocation.fromNamespaceAndPath(NeoStorage.MODID, "spyglasses"));
     public static final TagKey<Item> TOTEMS = ItemTags
             .create(ResourceLocation.fromNamespaceAndPath(NeoStorage.MODID, "totems"));
     public static final TagKey<Item> WOLF_ARMORS = ItemTags
             .create(ResourceLocation.fromNamespaceAndPath(NeoStorage.MODID, "wolf_armors"));
+    public static final TagKey<Item> WRITABLE_BOOKS = ItemTags
+            .create(ResourceLocation.fromNamespaceAndPath(NeoStorage.MODID, "writable_books"));
     
     public static final TagKey<Item> STORE_ARMORS = ItemTags
             .create(ResourceLocation.fromNamespaceAndPath(NeoStorage.MODID, "store_armors"));

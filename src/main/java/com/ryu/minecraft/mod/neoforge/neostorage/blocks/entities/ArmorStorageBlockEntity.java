@@ -15,7 +15,8 @@ import net.minecraft.world.level.block.state.BlockState;
 public class ArmorStorageBlockEntity extends AbstractStorageBlockEntity {
     
     private static final List<TagKey<Item>> ALLOWED_TAGS = List.of(ItemTags.FOOT_ARMOR, ItemTags.CHEST_ARMOR,
-            ItemTags.HEAD_ARMOR, ItemTags.LEG_ARMOR, SetupTags.SADDLES, SetupTags.HORSE_ARMORS, SetupTags.WOLF_ARMORS);
+            ItemTags.HEAD_ARMOR, ItemTags.LEG_ARMOR, SetupTags.ELYTRAS, SetupTags.SADDLES, SetupTags.HORSE_ARMORS,
+            SetupTags.WOLF_ARMORS);
     
     public ArmorStorageBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(SetupBlockEntity.ARMOR_STORAGE.get(), pPos, pBlockState, SetupTags.STORE_ARMORS);

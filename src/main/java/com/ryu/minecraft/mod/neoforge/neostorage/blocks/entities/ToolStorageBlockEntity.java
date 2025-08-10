@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class ToolStorageBlockEntity extends AbstractStorageBlockEntity {
     
     private static final List<TagKey<Item>> ALLOWED_TAGS = List.of(ItemTags.PICKAXES, ItemTags.AXES, ItemTags.SHOVELS,
-            ItemTags.HOES, SetupTags.SHEARS, SetupTags.BRUSHES, ItemTags.FISHING_ENCHANTABLE);
+            ItemTags.HOES, SetupTags.SHEARS, SetupTags.BRUSHES, ItemTags.FISHING_ENCHANTABLE, ItemTags.BUNDLES);
     
     public ToolStorageBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(SetupBlockEntity.TOOL_STORAGE.get(), pPos, pBlockState, SetupTags.STORE_TOOLS);

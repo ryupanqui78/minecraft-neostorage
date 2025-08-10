@@ -2,6 +2,7 @@
  - Adding Armor Storage block.
  - Adding Wolf and Horse armor into Armor Storage.
  - Adding Other Storage block.
+ - Adding additional items in the storage.
 0.6.5-1.21.5
  - Migrating to 1.21.5
 0.5.5-1.21.4
