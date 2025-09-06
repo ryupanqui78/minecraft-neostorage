@@ -12,12 +12,16 @@ import com.ryu.minecraft.mod.neoforge.neostorage.inventory.data.ItemStored;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.data.RendererItemData;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.phys.Vec3;
@@ -27,7 +31,10 @@ import net.neoforged.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class StorageBlockEntityRenderer<T extends AbstractStorageBlockEntity> implements BlockEntityRenderer<T> {
     
+    private final Font font;
+    
     public StorageBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
+        this.font = ctx.getFont();
     }
     
     @Override
@@ -38,12 +45,15 @@ public class StorageBlockEntityRenderer<T extends AbstractStorageBlockEntity> im
                 blockEntity.getBlockPos().relative(facing));
         final int levelSlots = blockEntity.getBlockState().getValue(AbstractStorageBlock.LEVEL);
         final List<ItemStored> items = blockEntity.getItemsStoredByCount();
+        poseStack.pushPose();
+        
+        poseStack.mulPose(StorageHelper.createMatrix(new Vector3f(0), new Vector3f(0, 180, 0), scale));
+        StorageHelper.updatePostionByDirection(facing, scale, poseStack);
+        this.renderInformation(poseStack, bufferSource, blockEntity.getNumberFilledSlots(),
+                blockEntity.getNumberTotalSlots());
+        
         if (!items.isEmpty()) {
             poseStack.pushPose();
-            poseStack.mulPose(StorageHelper.createMatrix(new Vector3f(0), new Vector3f(0, 180, 0), scale));
-            StorageHelper.updatePostionByDirection(facing, scale, poseStack);
-            StorageHelper.renderInformation(poseStack, bufferSource, packedOverlay, blockEntity.getNumberFilledSlots(),
-                    blockEntity.getNumberTotalSlots());
             if (levelSlots == 1) {
                 this.render1Slot(blockEntity, items, poseStack, bufferSource, combinedLightIn, packedOverlay);
             }
@@ -58,6 +68,7 @@ public class StorageBlockEntityRenderer<T extends AbstractStorageBlockEntity> im
             }
             poseStack.popPose();
         }
+        poseStack.popPose();
     }
     
     private void render1Slot(T pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int combinedOverlayIn) {
@@ -134,6 +145,30 @@ public class StorageBlockEntityRenderer<T extends AbstractStorageBlockEntity> im
                     pRendererItemData.getOverlayInValue(), pRendererItemData.getMaxScale());
             pPoseStack.popPose();
         }
+    }
+    
+    private void renderInformation(PoseStack poseStack, MultiBufferSource bufferSource, long pItemsStored, int pMaxItem) {
+        List<FormattedCharSequence> list = this.font
+                .split(Component.translatable("text.storage.fill.information.literal", pItemsStored, pMaxItem), 100);
+        FormattedCharSequence formattedcharsequence = list.isEmpty() ? FormattedCharSequence.EMPTY : list.get(0);
+        Vec3 textOffset = new Vec3(0.5f, 0.092f, 0.01);
+        final int requiredHeight = this.font.lineHeight + 2;
+        float scaleText = 0.007f;
+        final int realSize = (int) Math.floor(1f / scaleText);
+        final int offsetY = (realSize - requiredHeight) / 2;
+        float xPos = -this.font.width(formattedcharsequence) / 2f;
+        final int yPos = (3 + offsetY) - (realSize / 2);
+        int color = DyeColor.WHITE.getTextColor();
+        int light = LightTexture.pack(15, 15);
+        
+        poseStack.pushPose();
+        poseStack.translate(textOffset);
+        poseStack.scale(scaleText, -scaleText, scaleText);
+        
+        this.font.drawInBatch(formattedcharsequence, xPos, yPos, color, false, poseStack.last().pose(), bufferSource,
+                Font.DisplayMode.POLYGON_OFFSET, 0, light);
+        
+        poseStack.popPose();
     }
     
 }

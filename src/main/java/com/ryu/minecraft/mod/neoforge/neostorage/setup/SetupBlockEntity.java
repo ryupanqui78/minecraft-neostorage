@@ -25,20 +25,24 @@ public class SetupBlockEntity {
     
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ArmorStorageBlockEntity>> ARMOR_STORAGE = SetupBlockEntity.BLOCK_ENTITIES
             .register(ArmorStorageBlock.BLOCK_NAME,
-                    () -> new BlockEntityType<>(ArmorStorageBlockEntity::new, SetupBlocks.ARMOR_STORAGE.stream()
-                            .map(DeferredBlock<AbstractStorageBlock>::get).toList().toArray(new Block[0])));
+                    () -> new BlockEntityType<ArmorStorageBlockEntity>(ArmorStorageBlockEntity::new,
+                            SetupBlocks.ARMOR_STORAGE.stream().map(DeferredBlock<AbstractStorageBlock>::get).toList()
+                                    .toArray(new Block[0])));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OtherStorageBlockEntity>> OTHER_STORAGE = SetupBlockEntity.BLOCK_ENTITIES
             .register(OtherStorageBlock.BLOCK_NAME,
-                    () -> new BlockEntityType<>(OtherStorageBlockEntity::new, SetupBlocks.OTHER_STORAGE.stream()
-                            .map(DeferredBlock<AbstractStorageBlock>::get).toList().toArray(new Block[0])));
+                    () -> new BlockEntityType<OtherStorageBlockEntity>(OtherStorageBlockEntity::new,
+                            SetupBlocks.OTHER_STORAGE.stream().map(DeferredBlock<AbstractStorageBlock>::get).toList()
+                                    .toArray(new Block[0])));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ToolStorageBlockEntity>> TOOL_STORAGE = SetupBlockEntity.BLOCK_ENTITIES
             .register(ToolStorageBlock.BLOCK_NAME,
-                    () -> new BlockEntityType<>(ToolStorageBlockEntity::new, SetupBlocks.TOOL_STORAGE.stream()
-                            .map(DeferredBlock<AbstractStorageBlock>::get).toList().toArray(new Block[0])));
+                    () -> new BlockEntityType<ToolStorageBlockEntity>(ToolStorageBlockEntity::new,
+                            SetupBlocks.TOOL_STORAGE.stream().map(DeferredBlock<AbstractStorageBlock>::get).toList()
+                                    .toArray(new Block[0])));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<WeaponStorageBlockEntity>> WEAPON_STORAGE = SetupBlockEntity.BLOCK_ENTITIES
             .register(WeaponStorageBlock.BLOCK_NAME,
-                    () -> new BlockEntityType<>(WeaponStorageBlockEntity::new, SetupBlocks.WEAPON_STORAGE.stream()
-                            .map(DeferredBlock<AbstractStorageBlock>::get).toList().toArray(new Block[0])));
+                    () -> new BlockEntityType<WeaponStorageBlockEntity>(WeaponStorageBlockEntity::new,
+                            SetupBlocks.WEAPON_STORAGE.stream().map(DeferredBlock<AbstractStorageBlock>::get).toList()
+                                    .toArray(new Block[0])));
     
     private SetupBlockEntity() {
     }

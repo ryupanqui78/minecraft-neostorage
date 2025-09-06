@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nullable;
-
 import com.ryu.minecraft.mod.neoforge.neostorage.blocks.AbstractStorageBlock;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.StorageMenu;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.data.ItemStored;
@@ -22,11 +20,9 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.RandomizableContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -34,13 +30,14 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
-public abstract class AbstractStorageBlockEntity extends BaseContainerBlockEntity implements RandomizableContainer {
+public abstract class AbstractStorageBlockEntity extends RandomizableContainerBlockEntity {
     
     private static final String TAG_LEVEL_SLOTS = "LevelSlots";
     
@@ -99,20 +96,12 @@ public abstract class AbstractStorageBlockEntity extends BaseContainerBlockEntit
     private final TagKey<Item> filterTag;
     
     protected NonNullList<ItemStack> items = NonNullList.withSize(StorageMenu.NUMBER_SLOTS_CONTAINER, ItemStack.EMPTY);
-    @Nullable
-    protected ResourceKey<LootTable> lootTable;
-    protected long lootTableSeed;
     
     private int levelSlots;
     
     protected AbstractStorageBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState, TagKey<Item> pFilterTag) {
         super(pType, pPos, pBlockState);
         this.filterTag = pFilterTag;
-    }
-    
-    @Override
-    public boolean canOpen(Player pPlayer) {
-        return super.canOpen(pPlayer) && ((this.lootTable == null) || !pPlayer.isSpectator());
     }
     
     @Override
@@ -142,17 +131,6 @@ public abstract class AbstractStorageBlockEntity extends BaseContainerBlockEntit
         return new StorageMenu(pContainerId, pInventory, new StorageMenuData(this, this.dataAccess, this.filterTag));
     }
     
-    @Override
-    @Nullable
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
-        if (this.canOpen(pPlayer)) {
-            this.unpackLootTable(pInventory.player);
-            return this.createMenu(pContainerId, pInventory);
-        } else {
-            return null;
-        }
-    }
-    
     public abstract List<TagKey<Item>> getAvailablesTagKey();
     
     @Override
@@ -177,12 +155,6 @@ public abstract class AbstractStorageBlockEntity extends BaseContainerBlockEntit
         }
         
         return listTags;
-    }
-    
-    @Override
-    public ItemStack getItem(int pIndex) {
-        this.unpackLootTable(null);
-        return this.getItems().get(pIndex);
     }
     
     @Override
@@ -228,16 +200,6 @@ public abstract class AbstractStorageBlockEntity extends BaseContainerBlockEntit
         return this.levelSlots;
     }
     
-    @Override
-    public ResourceKey<LootTable> getLootTable() {
-        return this.lootTable;
-    }
-    
-    @Override
-    public long getLootTableSeed() {
-        return this.lootTableSeed;
-    }
-    
     public long getNumberFilledSlots() {
         return this.getContainerSize() - this.items.stream().filter(ItemStack::isEmpty).count();
     }
@@ -253,76 +215,31 @@ public abstract class AbstractStorageBlockEntity extends BaseContainerBlockEntit
     
     @Override
     public CompoundTag getUpdateTag(Provider pRegistries) {
-        final CompoundTag compoundTag = new CompoundTag();
-        this.saveAdditional(compoundTag, pRegistries);
-        return compoundTag;
+        return this.saveWithoutMetadata(pRegistries);
     }
     
     @Override
-    public boolean isEmpty() {
-        this.unpackLootTable(null);
-        return this.getItems().stream().allMatch(ItemStack::isEmpty);
-    }
-    
-    @Override
-    protected void loadAdditional(CompoundTag pTag, Provider pRegistries) {
-        super.loadAdditional(pTag, pRegistries);
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        if (!this.tryLoadLootTable(pTag)) {
-            ContainerHelper.loadAllItems(pTag, this.items, pRegistries);
-            this.levelSlots = pTag.getByteOr(AbstractStorageBlockEntity.TAG_LEVEL_SLOTS, (byte) 0);
+        if (!this.tryLoadLootTable(input)) {
+            ContainerHelper.loadAllItems(input, this.items);
+            this.levelSlots = input.getByteOr(AbstractStorageBlockEntity.TAG_LEVEL_SLOTS, (byte) 0);
         }
     }
     
     @Override
-    public ItemStack removeItem(int pIndex, int pCount) {
-        this.unpackLootTable(null);
-        final ItemStack itemstack = ContainerHelper.removeItem(this.getItems(), pIndex, pCount);
-        if (!itemstack.isEmpty()) {
-            this.setChanged();
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        if (!this.trySaveLootTable(output)) {
+            ContainerHelper.saveAllItems(output, this.items);
+            output.putByte(AbstractStorageBlockEntity.TAG_LEVEL_SLOTS, (byte) this.levelSlots);
         }
-        
-        return itemstack;
-    }
-    
-    @Override
-    public ItemStack removeItemNoUpdate(int pIndex) {
-        this.unpackLootTable(null);
-        return ContainerHelper.takeItem(this.getItems(), pIndex);
-    }
-    
-    @Override
-    protected void saveAdditional(CompoundTag pTag, Provider pRegistries) {
-        super.saveAdditional(pTag, pRegistries);
-        if (!this.trySaveLootTable(pTag)) {
-            ContainerHelper.saveAllItems(pTag, this.items, pRegistries);
-            pTag.putByte(AbstractStorageBlockEntity.TAG_LEVEL_SLOTS, (byte) this.levelSlots);
-        }
-    }
-    
-    @Override
-    public void setItem(int pIndex, ItemStack pStack) {
-        this.unpackLootTable(null);
-        this.getItems().set(pIndex, pStack);
-        if (pStack.getCount() > this.getMaxStackSize()) {
-            pStack.setCount(this.getMaxStackSize());
-        }
-        this.setChanged();
     }
     
     @Override
     protected void setItems(NonNullList<ItemStack> pItemStacks) {
         this.items = pItemStacks;
-    }
-    
-    @Override
-    public void setLootTable(ResourceKey<LootTable> pLootTable) {
-        this.lootTable = pLootTable;
-    }
-    
-    @Override
-    public void setLootTableSeed(long pSeed) {
-        this.lootTableSeed = pSeed;
     }
     
     @Override
@@ -343,6 +260,10 @@ public abstract class AbstractStorageBlockEntity extends BaseContainerBlockEntit
     public void stopOpen(Player pPlayer) {
         if (!this.remove && !pPlayer.isSpectator()) {
             this.openersCounter.decrementOpeners(pPlayer, this.getLevel(), this.getBlockPos(), this.getBlockState());
+        }
+        if (!this.level.isClientSide()) {
+            this.setChanged();
+            this.level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
         }
     }
     

@@ -5,7 +5,7 @@ import com.ryu.minecraft.mod.neoforge.neostorage.inventory.StorageMenu;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -69,16 +69,16 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
         final int edgeY = (this.height - this.imageHeight) / 2;
         final int statContentX = edgeX + StorageScreen.LATERAL_SIZE;
         
-        pGuiGraphics.blit(RenderType::guiTextured, this.currentMainResource, statContentX, edgeY, 0, 0,
+        pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.currentMainResource, statContentX, edgeY, 0, 0,
                 this.imageWidth - StorageScreen.LATERAL_SIZE, this.imageHeight, StorageScreen.IMAGE_SIZE,
                 StorageScreen.IMAGE_SIZE);
-        pGuiGraphics.blit(RenderType::guiTextured, this.currentMainResource, edgeX, edgeY, 233, 0, 23, 143,
+        pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.currentMainResource, edgeX, edgeY, 233, 0, 23, 143,
                 StorageScreen.IMAGE_SIZE, StorageScreen.IMAGE_SIZE);
         this.renderContentBg(pGuiGraphics, statContentX + 5, edgeY + 16);
     }
     
     private void renderContentBg(GuiGraphics pGuiGraphics, int pStartX, int pStartY) {
-        pGuiGraphics.blit(RenderType::guiTextured, StorageScreen.TEXTURE, pStartX, pStartY, 0, 0, 166, 112,
+        pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, StorageScreen.TEXTURE, pStartX, pStartY, 0, 0, 166, 112,
                 StorageScreen.IMAGE_SIZE, StorageScreen.IMAGE_SIZE);
         
         // Disabled buttons
@@ -100,10 +100,11 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
         final int offsetTabY = pStartY + 2 + (18 * pIndex);
         final int offsetNumberY = pStartY + 6 + (18 * pIndex);
         
-        pGuiGraphics.blit(RenderType::guiTextured, StorageScreen.TEXTURE, pStartX + StorageScreen.OFFSET_TAB_BUTTON_X,
-                offsetTabY, 0, 113, 17, 20, StorageScreen.IMAGE_SIZE, StorageScreen.IMAGE_SIZE);
-        pGuiGraphics.blit(RenderType::guiTextured, StorageScreen.TEXTURE, pStartX + 169, offsetNumberY, 10.0f * pIndex,
-                134, 9, 11, StorageScreen.IMAGE_SIZE, StorageScreen.IMAGE_SIZE);
+        pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, StorageScreen.TEXTURE,
+                pStartX + StorageScreen.OFFSET_TAB_BUTTON_X, offsetTabY, 0, 113, 17, 20, StorageScreen.IMAGE_SIZE,
+                StorageScreen.IMAGE_SIZE);
+        pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, StorageScreen.TEXTURE, pStartX + 169, offsetNumberY,
+                10.0f * pIndex, 134, 9, 11, StorageScreen.IMAGE_SIZE, StorageScreen.IMAGE_SIZE);
     }
     
     private void renderEnabledTabNumber(GuiGraphics pGuiGraphics, int pStartX, int pStartY, int pIndex, boolean pIsSelected) {
@@ -111,10 +112,10 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
             final int offsetTabY = pStartY + 2 + (18 * pIndex);
             final int offsetNumberY = pStartY + 6 + (18 * pIndex);
             
-            pGuiGraphics.blit(RenderType::guiTextured, StorageScreen.TEXTURE,
+            pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, StorageScreen.TEXTURE,
                     pStartX + StorageScreen.OFFSET_TAB_BUTTON_X, offsetTabY, 18, 113, 17, 20, StorageScreen.IMAGE_SIZE,
                     StorageScreen.IMAGE_SIZE);
-            pGuiGraphics.blit(RenderType::guiTextured, StorageScreen.TEXTURE, pStartX + 169, offsetNumberY,
+            pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, StorageScreen.TEXTURE, pStartX + 169, offsetNumberY,
                     10.0f * pIndex, 146, 9, 11, StorageScreen.IMAGE_SIZE, StorageScreen.IMAGE_SIZE);
         }
     }

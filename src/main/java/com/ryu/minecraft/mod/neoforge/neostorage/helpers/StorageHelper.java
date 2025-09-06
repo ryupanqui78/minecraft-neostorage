@@ -11,14 +11,12 @@ import com.mojang.math.Axis;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.data.ItemStored;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.data.RendererItemData;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -28,7 +26,8 @@ public class StorageHelper {
     private static final int COLUMNS_PER_ROW = 9;
     private static final Font FONT = Minecraft.getInstance().font;
     private static final int SIZE_SLOT = 18;
-    private static final Vector3f VECTOR_ZERO_VALUE = new Vector3f(0);
+    
+    public static final Vector3f VECTOR_ZERO_VALUE = new Vector3f(0);
     
     public static void addDefaultInventorySlots(Inventory pInventory, int pSlotPosX, int pSlotHotbarPosY, int pSlotInventoryPosY, Consumer<Slot> pMenu) {
         int indexInventory = 0;
@@ -54,29 +53,6 @@ public class StorageHelper {
                 (float) (eulerDegrees.y * (Math.PI / 180f)), (float) (eulerDegrees.z * (Math.PI / 180f)));
         transform.translation(translation).scale(scale).rotate(rotation);
         return transform;
-    }
-    
-    public static void renderInformation(PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedOverlayIn, long pItemsStored, int pMaxItem) {
-        final MutableComponent text = Component
-                .translatable("text.storage.fill.information.literal", pItemsStored, pMaxItem)
-                .withStyle(ChatFormatting.WHITE);
-        final int requiredWidth = Math.max(StorageHelper.FONT.width(text), 1);
-        final int requiredHeight = StorageHelper.FONT.lineHeight + 2;
-        final float scale = 0.007f;
-        final int realSize = (int) Math.floor(1f / scale);
-        final int offsetX = (realSize - requiredWidth) / 2;
-        final int offsetY = (realSize - requiredHeight) / 2;
-        final int xPos = offsetX - (realSize / 2);
-        final int yPos = (3 + offsetY) - (realSize / 2);
-        
-        pPoseStack.pushPose();
-        pPoseStack.translate(0.5f, 0.092f, 0.01);
-        pPoseStack.scale(scale, -scale, scale);
-        pPoseStack.mulPose(StorageHelper.createMatrix(StorageHelper.VECTOR_ZERO_VALUE, StorageHelper.VECTOR_ZERO_VALUE,
-                new Vector3f(.665f)));
-        StorageHelper.FONT.drawInBatch(text, xPos, yPos, combinedOverlayIn, false, pPoseStack.last().pose(), pBuffer,
-                Font.DisplayMode.NORMAL, 0, 0xF000F0);
-        pPoseStack.popPose();
     }
     
     public static void renderItemStack(ItemStored pItemStored, PoseStack pPoseStack, MultiBufferSource pBuffer, RendererItemData pRendererItemData) {
