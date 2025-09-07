@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0.99'
+    id 'net.neoforged.moddev' version '2.0.103'
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -12,7 +12,6 @@ version = mod_version
 group = mod_group_id
 
 repositories {
-    mavenLocal()
 }
 
 base {
