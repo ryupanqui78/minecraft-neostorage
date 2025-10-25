@@ -20,6 +20,9 @@ public class SetupCreativeModTab {
                     () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.neostorage.neostorage"))
                             .icon(SetupItems.NEOTOOL::toStack).displayItems((parameters, output) -> {
                                 output.accept(SetupItems.NEOTOOL.get());
+                                output.accept(SetupItems.UPGRADE_COPPER.get());
+                                output.accept(SetupItems.UPGRADE_IRON.get());
+                                output.accept(SetupItems.UPGRADE_EMERALD.get());
                                 SetupBlocks.ARMOR_STORAGE.forEach(output::accept);
                                 SetupBlocks.OTHER_STORAGE.forEach(output::accept);
                                 SetupBlocks.TOOL_STORAGE.forEach(output::accept);

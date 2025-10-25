@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "#@#",
+    "C$C",
+    "#@#"
+  ],
+  "key": {
+    "$": "neostorage:upgrade_iron",
+    "#": "minecraft:emerald",
+    "@": "minecraft:iron_ingot",
+    "C": "minecraft:copper_ingot"
+  },
+  "result": {
+    "id": "neostorage:upgrade_emerald",
+    "count": 1
+  }
+}

@@ -16,7 +16,13 @@
   "block.neostorage.weaponstorage3": "Weapon Storage (1x2)",
   "block.neostorage.weaponstorage4": "Weapon Storage (2x2)",
   
+  "container.upgrade.slot.empty": "Add a level upgrade item",
+  
   "item.neostorage.neotool": "NeoTool item",
+  "item.neostorage.upgrade_copper": "Upgrade Copper level",
+  "item.neostorage.upgrade_level.tooltip": "Increase the number of slots by ",
+  "item.neostorage.upgrade_emerald": "Upgrade Emerald level",
+  "item.neostorage.upgrade_iron": "Upgrade Iron level",
   
   "itemGroup.neostorage.neostorage": "Neo Storage items",
   

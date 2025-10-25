@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "neostorage:upgrade_copper",
+    "neostorage:upgrade_iron",
+    "neostorage:upgrade_emerald"
+  ]
+}
