@@ -8,6 +8,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.ryu.minecraft.mod.neoforge.neostorage.blocks.AbstractStorageBlock;
 import com.ryu.minecraft.mod.neoforge.neostorage.blocks.entities.AbstractStorageBlockEntity;
 import com.ryu.minecraft.mod.neoforge.neostorage.helpers.StorageHelper;
+import com.ryu.minecraft.mod.neoforge.neostorage.inventory.StorageMenu;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.data.ItemStored;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.data.RendererItemData;
 
@@ -42,10 +43,15 @@ public class StorageBlockEntityRenderer<T extends AbstractStorageBlockEntity> im
                 blockEntity.getBlockPos().relative(facing));
         final int levelSlots = blockEntity.getBlockState().getValue(AbstractStorageBlock.LEVEL);
         final List<ItemStored> items = blockEntity.getItemsStoredByCount();
+        final ItemStack upgradeItem = blockEntity.getItem(StorageMenu.SLOT_UPGRADE);
         poseStack.pushPose();
         
         poseStack.mulPose(StorageHelper.createMatrix(new Vector3f(0), new Vector3f(0, 180, 0), scale));
         StorageHelper.updatePostionByDirection(facing, scale, poseStack);
+        if (!upgradeItem.isEmpty()) {
+            StorageHelper.renderUpgrade(blockEntity.getLevel(), upgradeItem, poseStack, bufferSource, combinedLightIn,
+                    packedOverlay);
+        }
         this.renderInformation(poseStack, bufferSource, blockEntity.getNumberFilledSlots(),
                 blockEntity.getNumberTotalSlots());
         
@@ -130,6 +136,30 @@ public class StorageBlockEntityRenderer<T extends AbstractStorageBlockEntity> im
         }
     }
     
+    private void renderInformation(PoseStack poseStack, MultiBufferSource bufferSource, long pItemsStored, int pMaxItem) {
+        final List<FormattedCharSequence> list = this.font
+                .split(Component.translatable("text.storage.fill.information.literal", pItemsStored, pMaxItem), 100);
+        final FormattedCharSequence formattedcharsequence = list.isEmpty() ? FormattedCharSequence.EMPTY : list.get(0);
+        final Vec3 textOffset = new Vec3(0.5f, 0.092f, 0.01);
+        final int requiredHeight = this.font.lineHeight + 2;
+        final float scaleText = 0.007f;
+        final int realSize = (int) Math.floor(1f / scaleText);
+        final int offsetY = (realSize - requiredHeight) / 2;
+        final float xPos = -this.font.width(formattedcharsequence) / 2f;
+        final int yPos = (3 + offsetY) - (realSize / 2);
+        final int color = DyeColor.WHITE.getTextColor();
+        final int light = LightTexture.pack(15, 15);
+        
+        poseStack.pushPose();
+        poseStack.translate(textOffset);
+        poseStack.scale(scaleText, -scaleText, scaleText);
+        
+        this.font.drawInBatch(formattedcharsequence, xPos, yPos, color, false, poseStack.last().pose(), bufferSource,
+                Font.DisplayMode.POLYGON_OFFSET, 0, light);
+        
+        poseStack.popPose();
+    }
+    
     private void renderSlotItem(ItemStored pItemStored, Vector3f pTranslation, PoseStack pPoseStack, MultiBufferSource pBuffer, RendererItemData pRendererItemData) {
         final ItemStack itemStack = pItemStored.getItemStack();
         
@@ -142,30 +172,6 @@ public class StorageBlockEntityRenderer<T extends AbstractStorageBlockEntity> im
                     pRendererItemData.getOverlayInValue(), pRendererItemData.getMaxScale());
             pPoseStack.popPose();
         }
-    }
-    
-    private void renderInformation(PoseStack poseStack, MultiBufferSource bufferSource, long pItemsStored, int pMaxItem) {
-        List<FormattedCharSequence> list = this.font
-                .split(Component.translatable("text.storage.fill.information.literal", pItemsStored, pMaxItem), 100);
-        FormattedCharSequence formattedcharsequence = list.isEmpty() ? FormattedCharSequence.EMPTY : list.get(0);
-        Vec3 textOffset = new Vec3(0.5f, 0.092f, 0.01);
-        final int requiredHeight = this.font.lineHeight + 2;
-        float scaleText = 0.007f;
-        final int realSize = (int) Math.floor(1f / scaleText);
-        final int offsetY = (realSize - requiredHeight) / 2;
-        float xPos = -this.font.width(formattedcharsequence) / 2f;
-        final int yPos = (3 + offsetY) - (realSize / 2);
-        int color = DyeColor.WHITE.getTextColor();
-        int light = LightTexture.pack(15, 15);
-        
-        poseStack.pushPose();
-        poseStack.translate(textOffset);
-        poseStack.scale(scaleText, -scaleText, scaleText);
-        
-        this.font.drawInBatch(formattedcharsequence, xPos, yPos, color, false, poseStack.last().pose(), bufferSource,
-                Font.DisplayMode.POLYGON_OFFSET, 0, light);
-        
-        poseStack.popPose();
     }
     
 }

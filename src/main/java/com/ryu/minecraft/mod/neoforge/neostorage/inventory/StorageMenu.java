@@ -3,8 +3,10 @@ package com.ryu.minecraft.mod.neoforge.neostorage.inventory;
 import java.util.List;
 
 import com.ryu.minecraft.mod.neoforge.neostorage.blocks.entities.AbstractStorageBlockEntity;
+import com.ryu.minecraft.mod.neoforge.neostorage.client.gui.screens.inventory.StorageScreen;
 import com.ryu.minecraft.mod.neoforge.neostorage.helpers.StorageHelper;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.data.StorageMenuData;
+import com.ryu.minecraft.mod.neoforge.neostorage.inventory.slots.UpgradeLevelSlot;
 import com.ryu.minecraft.mod.neoforge.neostorage.setup.SetupMenus;
 
 import net.minecraft.tags.ItemTags;
@@ -45,7 +47,8 @@ public class StorageMenu extends AbstractContainerMenu {
     public static final String MENU_NAME = "storage";
     public static final int NUMBER_DATA_CONTAINER = 1;
     public static final int NUMBER_SLOTS_BY_PAGE = StorageMenu.NUMBER_OF_ROWS * StorageMenu.COLUMNS_PER_ROW;
-    public static final int NUMBER_SLOTS_CONTAINER = StorageMenu.NUMBER_SLOTS_BY_PAGE * StorageMenu.MAX_UPGRADE;
+    public static final int NUMBER_SLOTS_CONTAINER = (StorageMenu.NUMBER_SLOTS_BY_PAGE * StorageMenu.MAX_UPGRADE) + 1;
+    public static final int SLOT_UPGRADE = StorageMenu.NUMBER_SLOTS_CONTAINER - 1;
     
     private static final int MAX_UPGRADE = 4;
     private static final int NUMBER_OF_ROWS = 6;
@@ -83,7 +86,8 @@ public class StorageMenu extends AbstractContainerMenu {
                 }
             }
         }
-        
+        this.addSlot(new UpgradeLevelSlot(menuData.getContainer(), StorageMenu.SLOT_UPGRADE,
+                StorageScreen.POS_UPGRADE_SLOT_LEFT + 1, StorageScreen.POS_UPGRADE_SLOT_TOP + 1, 1));
         StorageHelper.addDefaultInventorySlots(pInventory, StorageMenu.CONTENT_SLOT_START_POS_X, 201, 143,
                 this::addSlot);
         

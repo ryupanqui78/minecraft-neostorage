@@ -7,11 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.ryu.minecraft.mod.neoforge.neostorage.blocks.AbstractStorageBlock;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.StorageMenu;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.data.ItemStored;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.data.StorageMenuData;
+import com.ryu.minecraft.mod.neoforge.neostorage.item.UpgradeLevelItem;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup.Provider;
@@ -140,7 +142,7 @@ public abstract class AbstractStorageBlockEntity extends RandomizableContainerBl
     
     public List<TagKey<Item>> getCurrentTagKeys() {
         final List<TagKey<Item>> listTags = new ArrayList<>();
-        final Map<Item, Long> listItems = this.items.stream().filter(itemStack -> !itemStack.isEmpty())
+        final Map<Item, Long> listItems = this.getStoredItem()
                 .collect(Collectors.groupingBy(ItemStack::getItem, Collectors.counting()));
         
         for (final Entry<Item, Long> entry : listItems.entrySet()) {
@@ -164,7 +166,7 @@ public abstract class AbstractStorageBlockEntity extends RandomizableContainerBl
     
     public List<ItemStored> getItemsStoredByCount() {
         final List<TagKey<Item>> currentTagKeys = this.getCurrentTagKeys();
-        final Map<Item, Long> sortedItems = this.items.stream().filter(itemStack -> !itemStack.isEmpty())
+        final Map<Item, Long> sortedItems = this.getStoredItem()
                 .collect(Collectors.groupingBy(ItemStack::getItem, Collectors.counting())).entrySet().stream()
                 .sorted(Map.Entry.<Item, Long> comparingByValue().reversed())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
@@ -206,6 +208,11 @@ public abstract class AbstractStorageBlockEntity extends RandomizableContainerBl
     
     public int getNumberTotalSlots() {
         return this.getLevelSlots() * StorageMenu.NUMBER_SLOTS_BY_PAGE;
+    }
+    
+    private Stream<ItemStack> getStoredItem() {
+        return this.items.stream()
+                .filter(itemStack -> !itemStack.isEmpty() && !(itemStack.getItem() instanceof UpgradeLevelItem));
     }
     
     @Override

@@ -3,6 +3,7 @@ package com.ryu.minecraft.mod.neoforge.neostorage.client.gui.screens.inventory;
 import com.ryu.minecraft.mod.neoforge.neostorage.NeoStorage;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.StorageMenu;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -11,6 +12,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
+    
+    public static final int POS_UPGRADE_SLOT_LEFT = 5;
+    public static final int POS_UPGRADE_SLOT_TOP = 33;
     
     protected static final int SLOT_SIZE = 18;
     protected static final int SLOT_CONTENT_SIZE = 16;
@@ -65,12 +69,22 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
         final int edgeX = (this.width - this.imageWidth) / 2;
         final int edgeY = (this.height - this.imageHeight) / 2;
         final int statContentX = edgeX + StorageScreen.LATERAL_SIZE;
+        final int slotLeftPos = edgeX + StorageScreen.POS_UPGRADE_SLOT_LEFT;
+        final int slotTopUpgradePos = edgeY + StorageScreen.POS_UPGRADE_SLOT_TOP;
         
         pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.currentMainResource, statContentX, edgeY, 0, 0,
                 this.imageWidth - StorageScreen.LATERAL_SIZE, this.imageHeight, StorageScreen.IMAGE_SIZE,
                 StorageScreen.IMAGE_SIZE);
         pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.currentMainResource, edgeX, edgeY, 233, 0, 23, 143,
                 StorageScreen.IMAGE_SIZE, StorageScreen.IMAGE_SIZE);
+        pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.currentMainResource, slotLeftPos, slotTopUpgradePos, 199,
+                0, StorageScreen.SLOT_SIZE, StorageScreen.SLOT_SIZE, StorageScreen.IMAGE_SIZE,
+                StorageScreen.IMAGE_SIZE);
+        if (this.menu.getItems().get(StorageMenu.SLOT_UPGRADE).isEmpty()) {
+            pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.currentMainResource, slotLeftPos + 1,
+                    slotTopUpgradePos + 1, 199, StorageScreen.SLOT_SIZE, StorageScreen.SLOT_CONTENT_SIZE,
+                    StorageScreen.SLOT_CONTENT_SIZE, StorageScreen.IMAGE_SIZE, StorageScreen.IMAGE_SIZE);
+        }
         this.renderContentBg(pGuiGraphics, statContentX + 5, edgeY + 16);
     }
     
@@ -117,4 +131,23 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
         }
     }
     
+    @Override
+    protected void renderTooltip(GuiGraphics guiGraphics, int pX, int pY) {
+        super.renderTooltip(guiGraphics, pX, pY);
+        
+        final int edgeX = (this.width - this.imageWidth) / 2;
+        final int edgeY = (this.height - this.imageHeight) / 2;
+        final int contentSlotLeftPos = edgeX + StorageScreen.POS_UPGRADE_SLOT_LEFT;
+        final int contentSlotToptPos = edgeY + StorageScreen.POS_UPGRADE_SLOT_TOP;
+        
+        final boolean isMouseXOverSlot = (pX >= contentSlotLeftPos)
+                && (pX < ((contentSlotLeftPos + StorageScreen.SLOT_SIZE) - 1));
+        final boolean isMouseYOverSlot = (pY >= contentSlotToptPos)
+                && (pY < ((contentSlotToptPos + StorageScreen.SLOT_SIZE) - 1));
+        if (isMouseXOverSlot && isMouseYOverSlot) {
+            final Component textUpgrade = Component.translatable("container.upgrade.slot.empty")
+                    .withStyle(ChatFormatting.GRAY);
+            guiGraphics.setTooltipForNextFrame(this.font, textUpgrade, pX, pY);
+        }
+    }
 }

@@ -1,5 +1,6 @@
 0.9.7-1.21.8
  - Adding Upgrade item.
+ - Adding upgrade item into storage.
 0.9.6-1.21.8
  - Migrating to 1.21.8
 0.8.6-1.21.7

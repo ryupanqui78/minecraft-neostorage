@@ -20,6 +20,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 public class StorageHelper {
     
@@ -94,6 +96,22 @@ public class StorageHelper {
         pPoseStack.scale(scale, -scale, scale);
         StorageHelper.FONT.drawInBatch(text, xPos, yPos, combinedOverlayIn, false, pPoseStack.last().pose(), pBuffer,
                 Font.DisplayMode.NORMAL, 0, 0xF000F0);
+    }
+    
+    public static void renderUpgrade(Level pLevel, ItemStack stack, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int packedOverlay) {
+        final float scale = 0.0625f;
+        pPoseStack.pushPose();
+        pPoseStack.translate(0, 0, -0.5 / 16D);
+        pPoseStack.translate(0.907f, 0.093f, 0.472 / 16D);
+        if (!stack.isEmpty()) {
+            pPoseStack.pushPose();
+            pPoseStack.scale(scale, scale, scale);
+            Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.NONE, combinedLightIn,
+                    packedOverlay, pPoseStack, pBuffer, pLevel, 0);
+            pPoseStack.popPose();
+            pPoseStack.translate(scale, 0, 0);
+        }
+        pPoseStack.popPose();
     }
     
     public static void updatePostionByDirection(Direction facing, Vector3f scale, PoseStack pPoseStack) {
