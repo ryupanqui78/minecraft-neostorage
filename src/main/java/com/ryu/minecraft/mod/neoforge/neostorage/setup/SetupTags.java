@@ -49,6 +49,9 @@ public class SetupTags {
     public static final TagKey<Item> STORE_WEAPONS = ItemTags
             .create(ResourceLocation.fromNamespaceAndPath(NeoStorage.MODID, "store_weapons"));
     
+    public static final TagKey<Item> UPGRADES = ItemTags
+            .create(ResourceLocation.fromNamespaceAndPath(NeoStorage.MODID, "upgrades"));
+    
     private SetupTags() {
     }
     

@@ -10,10 +10,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.ryu.minecraft.mod.neoforge.neostorage.blocks.AbstractStorageBlock;
+import com.ryu.minecraft.mod.neoforge.neostorage.helpers.SpecialContainerHelper;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.StorageMenu;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.data.ItemStored;
 import com.ryu.minecraft.mod.neoforge.neostorage.inventory.data.StorageMenuData;
 import com.ryu.minecraft.mod.neoforge.neostorage.item.UpgradeLevelItem;
+import com.ryu.minecraft.mod.neoforge.neostorage.setup.SetupTags;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup.Provider;
@@ -24,7 +26,6 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
-import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -42,6 +43,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 public abstract class AbstractStorageBlockEntity extends RandomizableContainerBlockEntity {
     
     private static final String TAG_LEVEL_SLOTS = "LevelSlots";
+    private static final String TAG_UPGRADE_LEVEL = "UpgradeLevel";
     
     protected final ContainerData dataAccess = new ContainerData() {
         
@@ -49,6 +51,8 @@ public abstract class AbstractStorageBlockEntity extends RandomizableContainerBl
         public int get(int pIndex) {
             if (pIndex == 0) {
                 return AbstractStorageBlockEntity.this.levelSlots;
+            } else if (pIndex == 1) {
+                return AbstractStorageBlockEntity.this.upgradeLevel;
             }
             return 0;
         }
@@ -62,6 +66,8 @@ public abstract class AbstractStorageBlockEntity extends RandomizableContainerBl
         public void set(int pIndex, int pValue) {
             if (pIndex == 0) {
                 AbstractStorageBlockEntity.this.levelSlots = pValue;
+            } else if (pIndex == 1) {
+                AbstractStorageBlockEntity.this.upgradeLevel = pValue;
             }
         }
         
@@ -100,6 +106,7 @@ public abstract class AbstractStorageBlockEntity extends RandomizableContainerBl
     protected NonNullList<ItemStack> items = NonNullList.withSize(StorageMenu.NUMBER_SLOTS_CONTAINER, ItemStack.EMPTY);
     
     private int levelSlots;
+    private int upgradeLevel;
     
     protected AbstractStorageBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState, TagKey<Item> pFilterTag) {
         super(pType, pPos, pBlockState);
@@ -203,11 +210,11 @@ public abstract class AbstractStorageBlockEntity extends RandomizableContainerBl
     }
     
     public long getNumberFilledSlots() {
-        return this.getContainerSize() - this.items.stream().filter(ItemStack::isEmpty).count();
+        return this.items.stream().filter(stack -> !stack.isEmpty() && !stack.is(SetupTags.UPGRADES)).count();
     }
     
     public int getNumberTotalSlots() {
-        return this.getLevelSlots() * StorageMenu.NUMBER_SLOTS_BY_PAGE;
+        return (this.getLevelSlots() + this.getUpgradeLevel()) * StorageMenu.NUMBER_SLOTS_BY_PAGE;
     }
     
     private Stream<ItemStack> getStoredItem() {
@@ -225,13 +232,18 @@ public abstract class AbstractStorageBlockEntity extends RandomizableContainerBl
         return this.saveWithoutMetadata(pRegistries);
     }
     
+    public int getUpgradeLevel() {
+        return this.upgradeLevel;
+    }
+    
     @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
         if (!this.tryLoadLootTable(input)) {
-            ContainerHelper.loadAllItems(input, this.items);
+            SpecialContainerHelper.loadAllItems(input, this.items);
             this.levelSlots = input.getByteOr(AbstractStorageBlockEntity.TAG_LEVEL_SLOTS, (byte) 0);
+            this.upgradeLevel = input.getByteOr(AbstractStorageBlockEntity.TAG_UPGRADE_LEVEL, (byte) 0);
         }
     }
     
@@ -239,8 +251,21 @@ public abstract class AbstractStorageBlockEntity extends RandomizableContainerBl
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
         if (!this.trySaveLootTable(output)) {
-            ContainerHelper.saveAllItems(output, this.items);
+            SpecialContainerHelper.saveAllItems(output, this.items);
             output.putByte(AbstractStorageBlockEntity.TAG_LEVEL_SLOTS, (byte) this.levelSlots);
+            output.putByte(AbstractStorageBlockEntity.TAG_UPGRADE_LEVEL, (byte) this.upgradeLevel);
+        }
+    }
+    
+    @Override
+    public void setItem(int index, ItemStack stack) {
+        super.setItem(index, stack);
+        if (index == StorageMenu.SLOT_UPGRADE) {
+            if (stack.getItem() instanceof final UpgradeLevelItem upgradeLevelItem) {
+                this.upgradeLevel = upgradeLevelItem.getUpgradeLevel();
+            } else {
+                this.upgradeLevel = 0;
+            }
         }
     }
     

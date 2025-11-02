@@ -50,23 +50,6 @@ public abstract class AbstractStorageBlock extends BaseEntityBlock {
                 context.getHorizontalDirection().getOpposite());
     }
     
-    //
-    // @Override
-    // public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
-    // if (!pState.is(pNewState.getBlock())) {
-    // final BlockState airState = Blocks.AIR.defaultBlockState();
-    // if (pLevel.getBlockEntity(pPos) instanceof final AbstractStorageBlockEntity be) {
-    // if (pLevel instanceof ServerLevel) {
-    // Containers.dropContents(pLevel, pPos, be);
-    // }
-    // pLevel.setBlock(pPos, airState, 1);
-    // pLevel.updateNeighbourForOutputSignal(pPos, this);
-    // } else {
-    // pLevel.setBlock(pPos, airState, 1);
-    // }
-    // }
-    // }
-    //
     @Override
     protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHitResult) {
         if (pLevel.isClientSide) {

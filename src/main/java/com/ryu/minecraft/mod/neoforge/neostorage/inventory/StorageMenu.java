@@ -45,9 +45,11 @@ public class StorageMenu extends AbstractContainerMenu {
     }
     
     public static final String MENU_NAME = "storage";
-    public static final int NUMBER_DATA_CONTAINER = 1;
+    public static final int NUMBER_DATA_CONTAINER = 2;
+    public static final int NUMBER_UPGRADE_MAX_LEVEL = 3;
     public static final int NUMBER_SLOTS_BY_PAGE = StorageMenu.NUMBER_OF_ROWS * StorageMenu.COLUMNS_PER_ROW;
-    public static final int NUMBER_SLOTS_CONTAINER = (StorageMenu.NUMBER_SLOTS_BY_PAGE * StorageMenu.MAX_UPGRADE) + 1;
+    public static final int NUMBER_SLOTS_CONTAINER = (StorageMenu.NUMBER_SLOTS_BY_PAGE
+            * (StorageMenu.MAX_UPGRADE + StorageMenu.NUMBER_UPGRADE_MAX_LEVEL)) + 1;
     public static final int SLOT_UPGRADE = StorageMenu.NUMBER_SLOTS_CONTAINER - 1;
     
     private static final int MAX_UPGRADE = 4;
@@ -75,7 +77,7 @@ public class StorageMenu extends AbstractContainerMenu {
         this.data = menuData;
         menuData.getContainer().startOpen(pInventory.player);
         
-        for (int i = 0; i < StorageMenu.MAX_UPGRADE; i++) {
+        for (int i = 0; i < (StorageMenu.MAX_UPGRADE + StorageMenu.NUMBER_UPGRADE_MAX_LEVEL); i++) {
             for (int j = 0; j < StorageMenu.NUMBER_OF_ROWS; ++j) {
                 for (int k = 0; k < StorageMenu.COLUMNS_PER_ROW; ++k) {
                     final int indexContainer = k + (j * StorageMenu.COLUMNS_PER_ROW)
@@ -104,6 +106,10 @@ public class StorageMenu extends AbstractContainerMenu {
     
     public int getLevelSlot() {
         return this.data.getLevelSlots();
+    }
+    
+    public int getUpgradeLevel() {
+        return this.data.getUpgradeLevel();
     }
     
     protected boolean isValidItem(ItemStack pStack) {
@@ -135,7 +141,8 @@ public class StorageMenu extends AbstractContainerMenu {
             }
         } else {
             final int currentMaxSlots = StorageMenu.NUMBER_SLOTS_BY_PAGE * this.data.getLevelSlots();
-            if (!this.moveItemStackTo(itemstack1, 0, currentMaxSlots, false)) {
+            if (!(this.moveItemStackTo(itemstack1, 0, currentMaxSlots, false)
+                    || this.moveItemStackTo(itemstack1, NUMBER_SLOTS_CONTAINER - 1, NUMBER_SLOTS_CONTAINER, false))) {
                 return ItemStack.EMPTY;
             }
         }

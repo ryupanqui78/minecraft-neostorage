@@ -32,4 +32,12 @@ public class StorageMenuData {
         return this.dataMultiple.get(0);
     }
     
+    public int getUpgradeLevel() {
+        return this.dataMultiple.get(1);
+    }
+    
+    public void setUpgradeLevel(int level) {
+        this.dataMultiple.set(1, level);
+    }
+    
 }

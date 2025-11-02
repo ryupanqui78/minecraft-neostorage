@@ -44,18 +44,33 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         final int edgeX = (this.width - this.imageWidth) / 2;
         final int edgeY = (this.height - this.imageHeight) / 2;
+        final double pMouseY = mouseY - (edgeY + 16) - 3;
         final double posX = 182 - (mouseX - (edgeX + StorageScreen.LATERAL_SIZE + 5));
-        final double pMouseY = mouseY - (edgeY + 16);
         final boolean isInsideButtonX = (posX > 0) && (posX < 16);
-        final int posY = (int) (pMouseY - 3) % 18;
-        
-        if (isInsideButtonX && ((posY >= 0) && (posY < 18))) {
-            final int index = (int) (pMouseY - 4) / 18;
-            if (index <= (this.menu.getLevelSlot() - 1)) {
-                this.menu.setCurrentTab(index);
+        final int posY = (int) (pMouseY - 4) % 14;
+        final int index = (int) (pMouseY - 4) / 14;
+        int currentTab = this.menu.getCurrentTab();
+        if (isInsideButtonX) {
+            if (0 <= pMouseY && pMouseY < 4) {
+                if (currentTab != index) {
+                    this.changeCurrentTab(index);
+                }
+            } else {
+                final int currentAvailableTabs = this.menu.getLevelSlot() + this.menu.getUpgradeLevel();
+                if ((posY < 10 || index == currentAvailableTabs - 1) && posY >= 0 && posY < 14) {
+                    this.changeCurrentTab(index);
+                }
             }
         }
+        
         return super.mouseClicked(mouseX, mouseY, button);
+    }
+    
+    private void changeCurrentTab(int pNewTab) {
+        final int currentAvailableTabs = this.menu.getLevelSlot() + this.menu.getUpgradeLevel();
+        if (pNewTab < currentAvailableTabs) {
+            this.menu.setCurrentTab(pNewTab);
+        }
     }
     
     @Override
@@ -89,27 +104,26 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
     }
     
     private void renderContentBg(GuiGraphics pGuiGraphics, int pStartX, int pStartY) {
+        final int currentAvailableTabs = this.menu.getLevelSlot() + this.menu.getUpgradeLevel();
         pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, StorageScreen.TEXTURE, pStartX, pStartY, 0, 0, 166, 112,
                 StorageScreen.IMAGE_SIZE, StorageScreen.IMAGE_SIZE);
         
         // Disabled buttons
-        if (this.menu.getLevelSlot() > 1) {
-            for (int i = 0; i < this.menu.getLevelSlot(); i++) {
-                this.renderDisabledTabNumber(pGuiGraphics, pStartX, pStartY, i);
+        if (currentAvailableTabs > 1) {
+            for (int i = currentAvailableTabs; i > 0; i--) {
+                this.renderDisabledTabNumber(pGuiGraphics, pStartX, pStartY, i - 1);
             }
         }
         
         // Enabled buttons
-        if (this.menu.getLevelSlot() > 1) {
-            for (int i = 0; i < this.menu.getLevelSlot(); i++) {
-                this.renderEnabledTabNumber(pGuiGraphics, pStartX, pStartY, i, this.menu.getCurrentTab() == i);
-            }
+        if (currentAvailableTabs > 1) {
+            this.renderEnabledTabNumber(pGuiGraphics, pStartX, pStartY, this.menu.getCurrentTab(), true);
         }
     }
     
     private void renderDisabledTabNumber(GuiGraphics pGuiGraphics, int pStartX, int pStartY, int pIndex) {
-        final int offsetTabY = pStartY + 2 + (18 * pIndex);
-        final int offsetNumberY = pStartY + 6 + (18 * pIndex);
+        final int offsetTabY = pStartY + 2 + (14 * pIndex);
+        final int offsetNumberY = pStartY + 7 + (14 * pIndex);
         
         pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, StorageScreen.TEXTURE,
                 pStartX + StorageScreen.OFFSET_TAB_BUTTON_X, offsetTabY, 0, 113, 17, 20, StorageScreen.IMAGE_SIZE,
@@ -120,8 +134,8 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
     
     private void renderEnabledTabNumber(GuiGraphics pGuiGraphics, int pStartX, int pStartY, int pIndex, boolean pIsSelected) {
         if (pIsSelected) {
-            final int offsetTabY = pStartY + 2 + (18 * pIndex);
-            final int offsetNumberY = pStartY + 6 + (18 * pIndex);
+            final int offsetTabY = pStartY + 2 + (14 * pIndex);
+            final int offsetNumberY = pStartY + 7 + (14 * pIndex);
             
             pGuiGraphics.blit(RenderPipelines.GUI_TEXTURED, StorageScreen.TEXTURE,
                     pStartX + StorageScreen.OFFSET_TAB_BUTTON_X, offsetTabY, 18, 113, 17, 20, StorageScreen.IMAGE_SIZE,
