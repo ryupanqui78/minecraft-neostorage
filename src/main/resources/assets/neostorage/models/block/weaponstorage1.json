@@ -1,6 +1,5 @@
 {
-	"credit": "Made with Blockbench",
-	"parent": "neostorage:block/cube_front_top",
+	"parent": "neostorage:block/storage_base_1",
 	"textures": {
 	  "bottom": "neostorage:block/weaponstorage_bottom",
     "front": "neostorage:block/weaponstorage_front",

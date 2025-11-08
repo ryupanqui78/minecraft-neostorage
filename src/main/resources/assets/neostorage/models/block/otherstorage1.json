@@ -1,6 +1,5 @@
 {
-  "credit": "Made with Blockbench",
-  "parent": "neostorage:block/cube_front_top",
+  "parent": "neostorage:block/storage_base_1",
   "textures": {
     "bottom": "neostorage:block/otherstorage_bottom",
     "front": "neostorage:block/otherstorage_front",

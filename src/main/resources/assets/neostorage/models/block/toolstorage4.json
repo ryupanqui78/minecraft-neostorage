@@ -1,7 +1,9 @@
 {
-  "credit": "Made with Blockbench",
-  "parent": "neostorage:block/toolstorage1",
+  "parent": "neostorage:block/storage_base_4",
   "textures": {
-    "front": "neostorage:block/toolstorage_front4"
+    "bottom": "neostorage:block/toolstorage_bottom",
+    "front": "neostorage:block/toolstorage_front4",
+    "side": "neostorage:block/toolstorage_side",
+    "top": "neostorage:block/toolstorage_top"
   }
 }

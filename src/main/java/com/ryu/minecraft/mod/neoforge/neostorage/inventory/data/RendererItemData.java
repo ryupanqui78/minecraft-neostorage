@@ -4,13 +4,13 @@ import net.minecraft.world.level.Level;
 
 public class RendererItemData {
     private final int lightInValue;
-    private final int overlayInValue;
+    private final boolean showTextCount;
     private final float maxScale;
     private final Level level;
     
-    public RendererItemData(int pLightInValue, int pOverlayInValue, float pMaxScale, Level pLevel) {
+    public RendererItemData(int pLightInValue, boolean pShowTextCount, float pMaxScale, Level pLevel) {
         this.lightInValue = pLightInValue;
-        this.overlayInValue = pOverlayInValue;
+        this.showTextCount = pShowTextCount;
         this.maxScale = pMaxScale;
         this.level = pLevel;
     }
@@ -27,8 +27,8 @@ public class RendererItemData {
         return this.maxScale;
     }
     
-    public int getOverlayInValue() {
-        return this.overlayInValue;
+    public boolean showTextCount() {
+        return this.showTextCount;
     }
     
 }

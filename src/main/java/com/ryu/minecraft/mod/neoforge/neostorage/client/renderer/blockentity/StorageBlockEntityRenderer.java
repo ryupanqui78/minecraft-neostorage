@@ -58,40 +58,37 @@ public class StorageBlockEntityRenderer<T extends AbstractStorageBlockEntity> im
         if (!items.isEmpty()) {
             poseStack.pushPose();
             if (levelSlots == 1) {
-                this.render1Slot(blockEntity, items, poseStack, bufferSource, combinedLightIn, packedOverlay);
+                this.render1Slot(blockEntity, items, poseStack, bufferSource, combinedLightIn);
             }
             if (levelSlots == 2) {
-                this.render2Slot(blockEntity, items, poseStack, bufferSource, combinedLightIn, packedOverlay);
+                this.render2Slot(blockEntity, items, poseStack, bufferSource, combinedLightIn);
             }
             if (levelSlots == 3) {
-                this.render3Slot(blockEntity, items, poseStack, bufferSource, combinedLightIn, packedOverlay);
+                this.render3Slot(blockEntity, items, poseStack, bufferSource, combinedLightIn);
             }
             if (levelSlots == 4) {
-                this.render4Slot(blockEntity, items, poseStack, bufferSource, combinedLightIn, packedOverlay);
+                this.render4Slot(blockEntity, items, poseStack, bufferSource, combinedLightIn);
             }
             poseStack.popPose();
         }
         poseStack.popPose();
     }
     
-    private void render1Slot(T pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int combinedOverlayIn) {
+    private void render1Slot(T pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn) {
         final ItemStack itemStack = pItemsStored.get(0).getItemStack();
-        final float maxTextScale = 0.04f;
+        final float maxTextScale = 0.09f;
         
         if (!itemStack.isEmpty()) {
-            final RendererItemData itemData = new RendererItemData(combinedLightIn, combinedOverlayIn, maxTextScale,
+            final RendererItemData itemData = new RendererItemData(combinedLightIn, false, maxTextScale,
                     pBlockEntity.getLevel());
             pPoseStack.translate(0.5, 0.55, 0.0005f);
             StorageHelper.renderItemStack(pItemsStored.get(0), pPoseStack, pBuffer, itemData);
-            StorageHelper.renderText(pPoseStack,
-                    Component.literal(ChatFormatting.WHITE + String.valueOf(pItemsStored.get(0).getCount())), pBuffer,
-                    combinedOverlayIn, maxTextScale);
         }
     }
     
-    private void render2Slot(T pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int combinedOverlayIn) {
-        final float maxTextScale = 0.05f;
-        final RendererItemData itemData = new RendererItemData(combinedLightIn, combinedOverlayIn, maxTextScale,
+    private void render2Slot(T pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn) {
+        final float maxTextScale = 0.09f;
+        final RendererItemData itemData = new RendererItemData(combinedLightIn, true, maxTextScale,
                 pBlockEntity.getLevel());
         
         this.renderSlotItem(pItemsStored.get(0), new Vector3f(0.5f, 0.80f, 0.0005f), pPoseStack, pBuffer, itemData);
@@ -100,9 +97,9 @@ public class StorageBlockEntityRenderer<T extends AbstractStorageBlockEntity> im
         }
     }
     
-    private void render3Slot(T pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int combinedOverlayIn) {
-        final float maxTextScale = 0.05f;
-        final RendererItemData itemData = new RendererItemData(combinedLightIn, combinedOverlayIn, maxTextScale,
+    private void render3Slot(T pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn) {
+        final float maxTextScale = 0.08f;
+        final RendererItemData itemData = new RendererItemData(combinedLightIn, true, maxTextScale,
                 pBlockEntity.getLevel());
         
         this.renderSlotItem(pItemsStored.get(0), new Vector3f(0.5f, 0.80f, 0.0005f), pPoseStack, pBuffer, itemData);
@@ -116,9 +113,9 @@ public class StorageBlockEntityRenderer<T extends AbstractStorageBlockEntity> im
         }
     }
     
-    private void render4Slot(T pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int combinedOverlayIn) {
-        final float maxTextScale = 0.05f;
-        final RendererItemData itemData = new RendererItemData(combinedLightIn, combinedOverlayIn, maxTextScale,
+    private void render4Slot(T pBlockEntity, List<ItemStored> pItemsStored, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn) {
+        final float maxTextScale = 0.07f;
+        final RendererItemData itemData = new RendererItemData(combinedLightIn, true, maxTextScale,
                 pBlockEntity.getLevel());
         
         this.renderSlotItem(pItemsStored.get(0), new Vector3f(0.25f, 0.80f, 0.0005f), pPoseStack, pBuffer, itemData);
@@ -140,7 +137,7 @@ public class StorageBlockEntityRenderer<T extends AbstractStorageBlockEntity> im
         final List<FormattedCharSequence> list = this.font
                 .split(Component.translatable("text.storage.fill.information.literal", pItemsStored, pMaxItem), 100);
         final FormattedCharSequence formattedcharsequence = list.isEmpty() ? FormattedCharSequence.EMPTY : list.get(0);
-        final Vec3 textOffset = new Vec3(0.5f, 0.092f, 0.01);
+        final Vec3 textOffset = new Vec3(0.5f, 0.092f, -0.9 / 16.0);
         final int requiredHeight = this.font.lineHeight + 2;
         final float scaleText = 0.007f;
         final int realSize = (int) Math.floor(1f / scaleText);
@@ -164,12 +161,15 @@ public class StorageBlockEntityRenderer<T extends AbstractStorageBlockEntity> im
         final ItemStack itemStack = pItemStored.getItemStack();
         
         if (!itemStack.isEmpty()) {
+            final int color = DyeColor.LIGHT_GRAY.getTextColor();
             pPoseStack.pushPose();
             pPoseStack.mulPose(StorageHelper.createMatrix(pTranslation, new Vector3f(0), new Vector3f(.5f, .5f, 1.0f)));
             StorageHelper.renderItemStack(pItemStored, pPoseStack, pBuffer, pRendererItemData);
-            StorageHelper.renderText(pPoseStack,
-                    Component.literal(ChatFormatting.WHITE + String.valueOf(pItemStored.getCount())), pBuffer,
-                    pRendererItemData.getOverlayInValue(), pRendererItemData.getMaxScale());
+            if (pRendererItemData.showTextCount()) {
+                StorageHelper.renderText(this.font, pPoseStack,
+                        Component.literal(ChatFormatting.WHITE + String.valueOf(pItemStored.getCount())), pBuffer,
+                        color, pRendererItemData.getMaxScale());
+            }
             pPoseStack.popPose();
         }
     }

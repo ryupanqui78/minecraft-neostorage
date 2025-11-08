@@ -1,5 +1,6 @@
 package com.ryu.minecraft.mod.neoforge.neostorage.helpers;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 import org.joml.Matrix4f;
@@ -17,6 +18,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -26,7 +28,6 @@ import net.minecraft.world.level.Level;
 public class StorageHelper {
     
     private static final int COLUMNS_PER_ROW = 9;
-    private static final Font FONT = Minecraft.getInstance().font;
     private static final int SIZE_SLOT = 18;
     
     public static final Vector3f VECTOR_ZERO_VALUE = new Vector3f(0);
@@ -58,6 +59,7 @@ public class StorageHelper {
     }
     
     public static void renderItemStack(ItemStored pItemStored, PoseStack pPoseStack, MultiBufferSource pBuffer, RendererItemData pRendererItemData) {
+        pPoseStack.translate(0, 0, -0.9 / 16.0);
         pPoseStack.mulPose(StorageHelper.createMatrix(StorageHelper.VECTOR_ZERO_VALUE, StorageHelper.VECTOR_ZERO_VALUE,
                 new Vector3f(.4f)));
         pPoseStack.mulPose(Axis.YP.rotationDegrees(180));
@@ -70,38 +72,32 @@ public class StorageHelper {
                 new Vector3f(.665f)));
     }
     
-    public static void renderText(PoseStack pPoseStack, Component text, MultiBufferSource pBuffer, int combinedOverlayIn, float maxScale) {
+    public static void renderText(Font font, PoseStack pPoseStack, Component text, MultiBufferSource pBuffer, int color, float scale) {
+        final List<FormattedCharSequence> list = font.split(text, 100);
+        final FormattedCharSequence formattedcharsequence = list.isEmpty() ? FormattedCharSequence.EMPTY : list.get(0);
+        
         final float displayWidth = 1;
-        final float displayHeight = 1;
-        final int requiredWidth = Math.max(StorageHelper.FONT.width(text), 1);
-        final int requiredHeight = StorageHelper.FONT.lineHeight + 2;
-        final float scaler = 0.4F;
-        final float scaleX = displayWidth / requiredWidth;
-        
-        float scale = scaleX * scaler;
-        
-        pPoseStack.translate(0, -1, 0.01);
-        
-        if (maxScale > 0) {
-            scale = Math.min(scale, maxScale);
-        }
-        
-        final int realHeight = (int) Math.floor(displayHeight / scale);
+        final int requiredWidth = Math.max(font.width(text), 1);
+        final int requiredHeight = font.lineHeight + 2;
         final int realWidth = (int) Math.floor(displayWidth / scale);
         final int offsetX = (realWidth - requiredWidth) / 2;
-        final int offsetY = 5 + ((realHeight - requiredHeight) / 2);
-        final int xPos = offsetX - (realWidth / 2);
-        final int yPos = offsetY - (realHeight / 2);
+        final int xPos = offsetX + (realWidth / 4);
+        final int yPos = 5 - (requiredHeight / 2);
         
+        pPoseStack.pushPose();
+        pPoseStack.translate(0, -1, 0.05);
         pPoseStack.scale(scale, -scale, scale);
-        StorageHelper.FONT.drawInBatch(text, xPos, yPos, combinedOverlayIn, false, pPoseStack.last().pose(), pBuffer,
+        
+        font.drawInBatch(formattedcharsequence, xPos, yPos, color, false, pPoseStack.last().pose(), pBuffer,
                 Font.DisplayMode.NORMAL, 0, 0xF000F0);
+        
+        pPoseStack.popPose();
     }
     
     public static void renderUpgrade(Level pLevel, ItemStack stack, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int packedOverlay) {
         final float scale = 0.0625f;
         pPoseStack.pushPose();
-        pPoseStack.translate(0, 0, -0.5 / 16D);
+        pPoseStack.translate(0, 0, -1.5 / 16D);
         pPoseStack.translate(0.907f, 0.093f, 0.472 / 16D);
         if (!stack.isEmpty()) {
             pPoseStack.pushPose();
