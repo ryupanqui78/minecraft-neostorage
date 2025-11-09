@@ -4,6 +4,7 @@
  - Adding additional slots for Storage when use Upgrade.
  - Fixing issue with count render in storage block.
  - Adding 3d model for storage block.
+ - Fix initial storage count and mining block.
 0.9.6-1.21.8
  - Migrating to 1.21.8
 0.8.6-1.21.7

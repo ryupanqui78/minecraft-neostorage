@@ -141,8 +141,8 @@ public class StorageMenu extends AbstractContainerMenu {
             }
         } else {
             final int currentMaxSlots = StorageMenu.NUMBER_SLOTS_BY_PAGE * this.data.getLevelSlots();
-            if (!(this.moveItemStackTo(itemstack1, 0, currentMaxSlots, false)
-                    || this.moveItemStackTo(itemstack1, NUMBER_SLOTS_CONTAINER - 1, NUMBER_SLOTS_CONTAINER, false))) {
+            if (!(this.moveItemStackTo(itemstack1, 0, currentMaxSlots, false) || this.moveItemStackTo(itemstack1,
+                    StorageMenu.NUMBER_SLOTS_CONTAINER - 1, StorageMenu.NUMBER_SLOTS_CONTAINER, false))) {
                 return ItemStack.EMPTY;
             }
         }

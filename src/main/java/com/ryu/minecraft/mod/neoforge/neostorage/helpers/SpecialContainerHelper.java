@@ -28,7 +28,8 @@ public class SpecialContainerHelper {
         
         for (int j = 0; j < container.getContainerSize(); j++) {
             final ItemStack itemstack = container.getItem(j);
-            final int k = SpecialContainerHelper.clearOrCountMatchingItems(itemstack, itemPredicate, maxItems - i, simulate);
+            final int k = SpecialContainerHelper.clearOrCountMatchingItems(itemstack, itemPredicate, maxItems - i,
+                    simulate);
             if ((k > 0) && !simulate && itemstack.isEmpty()) {
                 container.setItem(j, ItemStack.EMPTY);
             }

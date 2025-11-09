@@ -40,6 +40,13 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
         this.inventoryLabelY = this.imageHeight - 94;
     }
     
+    private void changeCurrentTab(int pNewTab) {
+        final int currentAvailableTabs = this.menu.getLevelSlot() + this.menu.getUpgradeLevel();
+        if (pNewTab < currentAvailableTabs) {
+            this.menu.setCurrentTab(pNewTab);
+        }
+    }
+    
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         final int edgeX = (this.width - this.imageWidth) / 2;
@@ -49,28 +56,21 @@ public class StorageScreen extends AbstractContainerScreen<StorageMenu> {
         final boolean isInsideButtonX = (posX > 0) && (posX < 16);
         final int posY = (int) (pMouseY - 4) % 14;
         final int index = (int) (pMouseY - 4) / 14;
-        int currentTab = this.menu.getCurrentTab();
+        final int currentTab = this.menu.getCurrentTab();
         if (isInsideButtonX) {
-            if (0 <= pMouseY && pMouseY < 4) {
+            if ((0 <= pMouseY) && (pMouseY < 4)) {
                 if (currentTab != index) {
                     this.changeCurrentTab(index);
                 }
             } else {
                 final int currentAvailableTabs = this.menu.getLevelSlot() + this.menu.getUpgradeLevel();
-                if ((posY < 10 || index == currentAvailableTabs - 1) && posY >= 0 && posY < 14) {
+                if (((posY < 10) || (index == (currentAvailableTabs - 1))) && (posY >= 0) && (posY < 14)) {
                     this.changeCurrentTab(index);
                 }
             }
         }
         
         return super.mouseClicked(mouseX, mouseY, button);
-    }
-    
-    private void changeCurrentTab(int pNewTab) {
-        final int currentAvailableTabs = this.menu.getLevelSlot() + this.menu.getUpgradeLevel();
-        if (pNewTab < currentAvailableTabs) {
-            this.menu.setCurrentTab(pNewTab);
-        }
     }
     
     @Override

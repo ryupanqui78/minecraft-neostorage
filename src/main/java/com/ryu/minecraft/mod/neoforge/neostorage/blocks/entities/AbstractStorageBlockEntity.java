@@ -111,6 +111,7 @@ public abstract class AbstractStorageBlockEntity extends RandomizableContainerBl
     protected AbstractStorageBlockEntity(BlockEntityType<?> pType, BlockPos pPos, BlockState pBlockState, TagKey<Item> pFilterTag) {
         super(pType, pPos, pBlockState);
         this.filterTag = pFilterTag;
+        this.levelSlots = pBlockState.getValue(AbstractStorageBlock.LEVEL);
     }
     
     @Override
