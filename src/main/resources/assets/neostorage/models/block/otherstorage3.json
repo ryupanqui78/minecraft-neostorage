@@ -1,9 +1,9 @@
 {
   "parent": "neostorage:block/storage_base_3",
   "textures": {
-    "bottom": "neostorage:block/otherstorage_bottom",
-    "front": "neostorage:block/otherstorage_front3",
-    "side": "neostorage:block/otherstorage_side",
-    "top": "neostorage:block/otherstorage_top"
+    "bottom": "neostorage:block/other_storage_bottom",
+    "front": "neostorage:block/other_storage_front_3",
+    "side": "neostorage:block/other_storage_side",
+    "top": "neostorage:block/other_storage_top"
   }
 }

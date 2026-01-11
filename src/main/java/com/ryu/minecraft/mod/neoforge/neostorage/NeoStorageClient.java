@@ -26,8 +26,6 @@ public class NeoStorageClient {
     
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        System.out.println("BlockEntityType: " + SetupBlockEntity.ARMOR_STORAGE.get());
-        
         event.registerBlockEntityRenderer(SetupBlockEntity.ARMOR_STORAGE.get(), StorageBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(SetupBlockEntity.OTHER_STORAGE.get(), StorageBlockEntityRenderer::new);
         event.registerBlockEntityRenderer(SetupBlockEntity.TOOL_STORAGE.get(), StorageBlockEntityRenderer::new);

@@ -1,9 +1,9 @@
 {
   "parent": "neostorage:block/storage_base_3",
   "textures": {
-    "bottom": "neostorage:block/weaponstorage_bottom",
-    "front": "neostorage:block/weaponstorage_front3",
-    "side": "neostorage:block/weaponstorage_side",
-    "top": "neostorage:block/weaponstorage_top"
+    "bottom": "neostorage:block/weapon_storage_bottom",
+    "front": "neostorage:block/weapon_storage_front_3",
+    "side": "neostorage:block/weapon_storage_side",
+    "top": "neostorage:block/weapon_storage_top"
   }
 }

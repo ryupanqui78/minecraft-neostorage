@@ -137,7 +137,7 @@ public class StorageBlockEntityRenderer<T extends AbstractStorageBlockEntity> im
         final List<FormattedCharSequence> list = this.font
                 .split(Component.translatable("text.storage.fill.information.literal", pItemsStored, pMaxItem), 100);
         final FormattedCharSequence formattedcharsequence = list.isEmpty() ? FormattedCharSequence.EMPTY : list.get(0);
-        final Vec3 textOffset = new Vec3(0.5f, 0.092f, -0.9 / 16.0);
+        final Vec3 textOffset = new Vec3(0.5f, 0.092f, -0.49 / 16.0);
         final int requiredHeight = this.font.lineHeight + 2;
         final float scaleText = 0.007f;
         final int realSize = (int) Math.floor(1f / scaleText);

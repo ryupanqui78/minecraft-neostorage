@@ -59,7 +59,7 @@ public class StorageHelper {
     }
     
     public static void renderItemStack(ItemStored pItemStored, PoseStack pPoseStack, MultiBufferSource pBuffer, RendererItemData pRendererItemData) {
-        pPoseStack.translate(0, 0, -0.9 / 16.0);
+        pPoseStack.translate(0, 0, -0.48 / 16.0);
         pPoseStack.mulPose(StorageHelper.createMatrix(StorageHelper.VECTOR_ZERO_VALUE, StorageHelper.VECTOR_ZERO_VALUE,
                 new Vector3f(.4f)));
         pPoseStack.mulPose(Axis.YP.rotationDegrees(180));
@@ -97,8 +97,7 @@ public class StorageHelper {
     public static void renderUpgrade(Level pLevel, ItemStack stack, PoseStack pPoseStack, MultiBufferSource pBuffer, int combinedLightIn, int packedOverlay) {
         final float scale = 0.0625f;
         pPoseStack.pushPose();
-        pPoseStack.translate(0, 0, -1.5 / 16D);
-        pPoseStack.translate(0.907f, 0.093f, 0.472 / 16D);
+        pPoseStack.translate(0.907f, 0.093f, -0.472 / 16D);
         if (!stack.isEmpty()) {
             pPoseStack.pushPose();
             pPoseStack.scale(scale, scale, scale);
